@@ -1,0 +1,30 @@
+{
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "C: gcc-11 build active file",
+            "command": "/usr/bin/gcc-11",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-fsanitize=address", 
+                "-fsanitize=leak", 
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Buid and compile C files. "
+        }
+    ],
+    "version": "2.0.0"
+}
