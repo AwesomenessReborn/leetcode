@@ -17,7 +17,6 @@
 #include <unordered_map>
 #include <queue>
 
-
 using namespace std; 
 
 static auto _ = [](){
@@ -153,37 +152,30 @@ int main() {
     
     // cout << heap.top() << endl; 
 
-    auto isSub = [] (string sub, string word) {
-        int sidx = 0; 
-        for (int i = 0; i < word.size(); i++) {
-            if (sub[sidx] == word[i]) sidx++; 
+    // auto isSub = [] (string sub, string word) {
+    //     int sidx = 0; 
+    //     for (int i = 0; i < word.size(); i++) {
+    //         if (sub[sidx] == word[i]) sidx++; 
 
-            if (sidx == sub.size()) return true; 
-        }
-        return false; 
-    }; 
+    //         if (sidx == sub.size()) return true; 
+    //     }
+    //     return false; 
+    // }; 
 
-    cout << (isSub("wwa", "dfkl;afdkj;lkjl") ? "true" : "false") << endl; 
+    // cout << (isSub("wwa", "dfkl;afdkj;lkjl") ? "true" : "false") << endl; 
 
-    // for (int i = 0; i < 30; i++) {
-    //     cout << "value: " << i << ", count of bits: " << getBits(i) << endl; 
-    // }
-    // int maxCount = 0; 
-    // int maxI = 0; 
-    // for (int i = 0; i < 10000; i++) {
-    //     int curr = getBits(i); 
-    //     if (curr > maxCount) {
-    //         maxCount = curr; 
-    //         maxI = i; 
+    // string s = "10000"; 
+    // int cnt = 0; 
+    // for (int i = 0; i < s.size(); i++) {
+    //     if (s[i] >= '0' && s[i] <= '9') {
+    //         cnt = (cnt*10) + (s[i] - '0'); 
     //     }
     // }
-    // cout <<  "max number of possible bits -- " << maxCount << endl; 
-    // cout <<  "happened at i = " << maxCount << endl; 
+    // cout << cnt + 1 << endl ; 
 
-    // vector<int> tt = {1, 2, 3}; 
-    // printArray(tt); 
-    // tt.insert(tt.begin(), 0); 
-    // printArray(tt); 
+    int i = 40; 
+    int leftover = 40 % 35; 
+    cout << "leftover: " << leftover << endl; 
 
     cout << "\n"; 
 
