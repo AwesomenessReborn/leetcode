@@ -1,4 +1,4 @@
-// https://leetcode.com/problems/smallest-number-in-infinite-set/
+// https://leetcode.com/problems/kth-largest-element-in-an-array/description/ 
 
 #include <map>
 #include <math.h>
@@ -39,42 +39,32 @@ void printArray(std::vector<T> values) {
     std::cout << "]" << std::endl; 
 } 
 
-// track all the values NOT in the set. 
-class SmallestInfiniteSet {
-private: 
-    set<int> values; 
-    int cur; 
+class Solution {
 public:
-    SmallestInfiniteSet() {
-        cur = 1; 
-        ios_base::sync_with_stdio(0);
-        cin.tie(0);
-        cout.tie(0);
-    }
-    int popSmallest() {
-        if (values.size()) {
-            int res = *values.begin(); 
-            values.erase(res); 
-            return res; 
-        } else {
-            cur++; 
-            return cur-1; 
+    int findKthLargest(vector<int>& nums, int k) {
+        priority_queue<int, vector<int>, std::greater<int> > que;   // construct min heap; 
+
+        for (int i = 0; i < nums.size(); i++) {
+            que.push(nums[i]); 
+
+            if (que.size() > k) {
+                que.pop(); 
+            }
         }
-    }
-    void addBack(int num) {
-        if (cur > num) values.insert(num); 
+
+        return que.top(); 
     }
 };
 
-/**
- * Your SmallestInfiniteSet object will be instantiated and called as such:
- * SmallestInfiniteSet* obj = new SmallestInfiniteSet();
- * int param_1 = obj->popSmallest();
- * obj->addBack(num);
- */
 int main(int argc, char const *argv[])
 {
+    Solution sol; 
 
+    vector<int> n1 = {3,2,1,5,6,4}; 
+    vector<int> n2 = {3,2,3,1,2,4,5,5,6}; 
+
+    cout << sol.findKthLargest(n1, 2) << endl; ; 
+    cout << sol.findKthLargest(n2, 4) << endl; ; 
 
     return 0;
 }

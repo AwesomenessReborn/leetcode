@@ -1,4 +1,5 @@
 
+#include <bitset>
 #include <map>
 #include <math.h>
 #include <algorithm>
@@ -173,11 +174,19 @@ int main() {
     // }
     // cout << cnt + 1 << endl ; 
 
-    int i = 40; 
-    int leftover = 40 % 35; 
-    cout << "leftover: " << leftover << endl; 
+    int i = 79097; 
+    int j = 33523; 
 
-    cout << "\n"; 
+    std::bitset<32> bi(i); // Convert to binary with 32 bits
+    std::cout << "The binary representation of " << i << " is " << bi << std::endl;
+    std::bitset<32> bj(j); // Convert to binary with 32 bits
+    std::cout << "The binary representation of " << j << " is " << bj << std::endl;
 
-    return 0;
+    int res = i ^ j; 
+
+    std::bitset<32> resss(j); // Convert to binary with 32 bits
+    std::cout << "The binary representation of " << res << " is " << resss << std::endl;
+
+    return 0;   
+
 }
