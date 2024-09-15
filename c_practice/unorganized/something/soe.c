@@ -2,6 +2,29 @@
 #include <stdlib.h>
 #include <string.h>
 
+void printArray(int* arr, int size) {
+    printf("[");
+    for (int i = 0; i < size; ++i) {
+        printf("%d", arr[i]);
+        if (i < size - 1) {
+            printf(", ");
+        }
+    }
+    printf("]\n");
+}
+
+void InsertionSortInterleaved(int* numbers, int numbersSize, int startIndex, int gap) {
+   for (int i = startIndex + gap; i < numbersSize; i += gap) {
+      int j = i;
+      while (j - gap >= startIndex && numbers[j] < numbers[j - gap]) {
+         int temp = numbers[j];
+         numbers[j] = numbers[j - gap];
+         numbers[j - gap] = temp;
+         j -= gap;
+      }
+   }
+}
+
 int main(int argc, char const *argv[])
 {
 
@@ -43,10 +66,22 @@ int main(int argc, char const *argv[])
     // for (int i = 48; i < 58; i++) {
     //     printf("index: %d \t char: %c \t digit match %d \n", i, i, i - 48); 
     // }
-    char* s = "()[]{}"; 
-    for (int i = 0; i < 6; i++) {
-        printf("%c : %d \n", s[i], s[i]); 
-    }
+    // char* s = "()[]{}"; 
+    // for (int i = 0; i < 6; i++) {
+    //     printf("%c : %d \n", s[i], s[i]); 
+    // }
+
+    int inp[] = {
+        85, 28, 74, 53, 17, 95
+    }; 
+    InsertionSortInterleaved(inp, 6, 0, 4); 
+    printArray(inp, 6); 
+
+    InsertionSortInterleaved(inp, 6, 0, 2); 
+    printArray(inp, 6); 
+
+    InsertionSortInterleaved(inp, 6, 0, 1); 
+    printArray(inp, 6); 
 
     // valid character ranges: i >= 97 && i < 123 || i >= 65 && i < 91
     // printf("%d \n\n", 701/26); 

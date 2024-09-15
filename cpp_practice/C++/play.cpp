@@ -114,6 +114,8 @@ int main() {
     
     // std::set<int>::iterator it = s1.end(); 
     // std::set<int>::reverse_iterator rit = s1.rend();  
+    
+    // std::cout << "end" << endl;
 
     // cout << *std::prev(it) << endl << endl; 
 
@@ -173,19 +175,26 @@ int main() {
     //     }
     // }
     // cout << cnt + 1 << endl ; 
+    int a = INT32_MAX; 
+    double b = pow(2, 31)-1; 
 
-    int i = 79097; 
-    int j = 33523; 
+    cout << a << endl; 
+    cout << b << endl; 
 
-    std::bitset<32> bi(i); // Convert to binary with 32 bits
-    std::cout << "The binary representation of " << i << " is " << bi << std::endl;
-    std::bitset<32> bj(j); // Convert to binary with 32 bits
-    std::cout << "The binary representation of " << j << " is " << bj << std::endl;
+    cout << ((a == b) ? "TRUE" : "FALSE") << endl; 
 
-    int res = i ^ j; 
+    // int i = 79097; 
+    // int j = 33523; 
 
-    std::bitset<32> resss(j); // Convert to binary with 32 bits
-    std::cout << "The binary representation of " << res << " is " << resss << std::endl;
+    // std::bitset<32> bi(i); // Convert to binary with 32 bits
+    // std::cout << "The binary representation of " << i << " is " << bi << std::endl;
+    // std::bitset<32> bj(j); // Convert to binary with 32 bits
+    // std::cout << "The binary representation of " << j << " is " << bj << std::endl;
+
+    // int res = i ^ j; 
+
+    // std::bitset<32> resss(j); // Convert to binary with 32 bits
+    // std::cout << "The binary representation of " << res << " is " << resss << std::endl;
 
     return 0;   
 
