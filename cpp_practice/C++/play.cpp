@@ -27,17 +27,6 @@ static auto _ = [](){
     return nullptr;
 }();
 
-struct CompareDistance {
-    bool operator()(const std::pair<int, int>& a, const std::pair<int, int>& b) {
-        return (a.first * a.first + a.second * a.second) > (b.first * b.first + b.second * b.second);
-    }
-};
-
-bool compare(const std::pair<int, int>& a, const std::pair<int, int>& b) {
-    return (a.first * a.first + a.second * a.second) > (b.first * b.first + b.second * b.second);
-}
-
-
 template <typename T>
 void printArray(std::vector<T> values) {
     std::cout << "["; 
@@ -50,152 +39,52 @@ void printArray(std::vector<T> values) {
     std::cout << "]" << std::endl; 
 }
 
+struct CompareDistance {
+    bool operator()(const std::pair<int, int>& a, const std::pair<int, int>& b) {
+        return (a.first * a.first + a.second * a.second) > (b.first * b.first + b.second * b.second);
+    }
+};
+
+bool compare(const std::pair<int, int>& a, const std::pair<int, int>& b) {
+    return (a.first * a.first + a.second * a.second) > (b.first * b.first + b.second * b.second);
+}
+
+// return index of target: 
+int binSearch(vector<int> arr, int x) {
+
+    int left = 0, right = arr.size()-1; 
+    int mid; 
+
+    while (left <= right) {
+        mid = left + (right - left) / 2; 
+
+        if (arr[mid] == x) {
+            return mid; 
+        } else if (arr[mid] > x) {
+            right = mid - 1; 
+        } else {
+            left = mid + 1; 
+        }
+    }
+
+    if (right < 0) return 0; 
+    if (left >= arr.size()) return arr.size() - 1; 
+
+    if (abs(arr[left]-x) < abs(arr[right] - x)) {
+        return left; 
+    } else {
+        return right; 
+    }
+}
+
 int main() {
+    vector<int> n1 = {0,0,3,4,5}; 
+    vector<int> n2 = {1,2,3,4,5}; 
 
-    // set<int> s1; 
-    // std::pair<std::set<int>::iterator, bool> ret1 = s1.insert(10); 
-    // std::pair<std::set<int>::iterator, bool> ret2 = s1.insert(10); 
+    int r1 = binSearch(n1, 2); 
 
-    // cout << *ret1.first << "----value \n" << endl; 
-    // cout << ret1.second << "----insert success?\n" << endl; 
-    // cout << *ret2.first << "----value\n" << endl; 
-    // cout << ret2.second << "----insert success?\n" << endl; 
+    cout << r1 << endl; 
 
-    // s1.insert(20); 
-    // s1.insert(12);
-    // s1.insert(122);
-    // s1.insert(12222);
-    // s1.insert(112);
-    // s1.insert(126);
-
-    // std::set<int>::iterator ret = s1.lower_bound(100); 
-
-    // cout << *ret << endl; 
-
-    // string s3 = "aabbccddeeffgghhiiiiii"; 
-    // cout << s3.size(); 
-
-    // string s = "224135"; 
-    // string ret = s.substr(0, 0); 
-    // cout << ret.size() << endl; 
-
-    //     cout << (((int)s[i] - 48) % 2 == 1) << endl; 
-    // }
-    
-    // for (int i = 97; i < 123; i++) {
-    //     cout << (char)i << " -- " << i << endl;; 
-    // }
-
-    // cout << (('0'))-48 << endl;; 
-    // cout << (('1'))-48 << endl;; 
-    // cout << (('2'))-48 << endl;; 
-    // cout << (('3'))-48 << endl;; 
-    // cout << (('4'))-48 << endl;; 
-
-    // std::vector<int> vec = {9, 5, 4, 1, 1, 3, 7};
-    // printArray(vec); 
-    // make_heap(vec.begin(), vec.end()); 
-    // printArray(vec); 
-    // vec.push_back(100); 
-    // push_heap(vec.begin(), vec.end()); 
-    // printArray(vec); 
-
-    // cout << (int)'b' << endl; // 98 -- 1x
-    // cout << (int)'a' << endl; // 97 -- 1x
-    // cout << (int)'l' << endl; // 108 -- 2x
-    // cout << (int)'o' << endl; // 111 -- 2x
-    // cout << (int)'n' << endl; // 110 -- 1x
-
-    // for (auto &&i : s1)
-    // {
-    //     cout << i << '\n'; 
-    // }
-    // cout << endl ; 
-    
-    // std::set<int>::iterator it = s1.end(); 
-    // std::set<int>::reverse_iterator rit = s1.rend();  
-    
-    // std::cout << "end" << endl;
-
-    // cout << *std::prev(it) << endl << endl; 
-
-    // cout << *std::next(it) << endl << endl; 
-
-    // cout << s1.size() << endl ; 
-    // int n = 0; 
-
-    // auto printer = [&](int value) {
-    //     cout << "some randome val=" << n << endl; 
-    // }; 
-    // for (int i = 0; i < 5; i++) {
-    //     printer(i); 
-    // }
-
-    // auto getBits = [](int value) {
-    //     int cnt = 0; 
-    //     for (int i = 0; i < 14; i++) {
-    //         if (value & (1 << i)) cnt++; 
-    //     }
-    //     return cnt; 
-    // }; 
-
-    // priority_queue<int, std::vector<int>,  std::greater<int> > heap; 
-    // heap.push(10); 
-    // heap.push(12); 
-    // heap.push(31); 
-    // heap.push(3); 
-
-
-    // // priority que holding points: 
-    // priority_queue<
-    //     std::pair<int, int>, 
-    //     std::vector<std::pair<int, int>>, 
-    //     CompareDistance
-    // > pointsq; 
-    
-    // cout << heap.top() << endl; 
-
-    // auto isSub = [] (string sub, string word) {
-    //     int sidx = 0; 
-    //     for (int i = 0; i < word.size(); i++) {
-    //         if (sub[sidx] == word[i]) sidx++; 
-
-    //         if (sidx == sub.size()) return true; 
-    //     }
-    //     return false; 
-    // }; 
-
-    // cout << (isSub("wwa", "dfkl;afdkj;lkjl") ? "true" : "false") << endl; 
-
-    // string s = "10000"; 
-    // int cnt = 0; 
-    // for (int i = 0; i < s.size(); i++) {
-    //     if (s[i] >= '0' && s[i] <= '9') {
-    //         cnt = (cnt*10) + (s[i] - '0'); 
-    //     }
-    // }
-    // cout << cnt + 1 << endl ; 
-    int a = INT32_MAX; 
-    double b = pow(2, 31)-1; 
-
-    cout << a << endl; 
-    cout << b << endl; 
-
-    cout << ((a == b) ? "TRUE" : "FALSE") << endl; 
-
-    // int i = 79097; 
-    // int j = 33523; 
-
-    // std::bitset<32> bi(i); // Convert to binary with 32 bits
-    // std::cout << "The binary representation of " << i << " is " << bi << std::endl;
-    // std::bitset<32> bj(j); // Convert to binary with 32 bits
-    // std::cout << "The binary representation of " << j << " is " << bj << std::endl;
-
-    // int res = i ^ j; 
-
-    // std::bitset<32> resss(j); // Convert to binary with 32 bits
-    // std::cout << "The binary representation of " << res << " is " << resss << std::endl;
-
+    cout << endl;
     return 0;   
-
 }
