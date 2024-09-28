@@ -50,9 +50,9 @@ int main(int argc, char const *argv[])
     // use this range: [32, 127) for printable characters: 
     // shift: +32. 
     // count: 95
-    // for (int i = 97; i < 123; i++) {
-    //     printf("index: %d \t char: %c \n", i, i); 
-    // }
+    for (int i = 97; i < 123; i++) {
+        printf("index: %d \t char: %c \n", i, i); 
+    }
 
     // for (int i = 65; i < 91; i++) {
     //     printf("index: %d \t char: %c \n", i, i); 
@@ -71,17 +71,17 @@ int main(int argc, char const *argv[])
     //     printf("%c : %d \n", s[i], s[i]); 
     // }
 
-    int inp[] = {
-        85, 28, 74, 53, 17, 95
-    }; 
-    InsertionSortInterleaved(inp, 6, 0, 4); 
-    printArray(inp, 6); 
+    // int inp[] = {
+    //     85, 28, 74, 53, 17, 95
+    // }; 
+    // InsertionSortInterleaved(inp, 6, 0, 4); 
+    // printArray(inp, 6); 
 
-    InsertionSortInterleaved(inp, 6, 0, 2); 
-    printArray(inp, 6); 
+    // InsertionSortInterleaved(inp, 6, 0, 2); 
+    // printArray(inp, 6); 
 
-    InsertionSortInterleaved(inp, 6, 0, 1); 
-    printArray(inp, 6); 
+    // InsertionSortInterleaved(inp, 6, 0, 1); 
+    // printArray(inp, 6); 
 
     // valid character ranges: i >= 97 && i < 123 || i >= 65 && i < 91
     // printf("%d \n\n", 701/26); 
