@@ -28,10 +28,14 @@ bool hasAlternatingBits(int n) {
 
 int main(int argc, char const *argv[])
 {
-    printf("t1 -- %d\n", hasAlternatingBits(5)); 
-    printf("t2 -- %d\n", hasAlternatingBits(7)); 
-    printf("t3 -- %d\n", hasAlternatingBits(11)); 
-    printf("t4 -- %d\n", hasAlternatingBits(6)); 
+    for (int i = 1; i < argc; i++) {
+        printf("t%d \t input: %d \t output: %d \n", i-1, atoi(argv[i]), hasAlternatingBits(atoi(argv[i]))); 
+    }
+
+    // printf("t1 -- %d\n", hasAlternatingBits(5)); 
+    // printf("t2 -- %d\n", hasAlternatingBits(7)); 
+    // printf("t3 -- %d\n", hasAlternatingBits(11)); 
+    // printf("t4 -- %d\n", hasAlternatingBits(6)); 
 
     return 0;
 }
