@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <string.h>
 
 void printArray(int* arr, int size) {
@@ -50,9 +51,9 @@ int main(int argc, char const *argv[])
     // use this range: [32, 127) for printable characters: 
     // shift: +32. 
     // count: 95
-    for (int i = 97; i < 123; i++) {
-        printf("index: %d \t char: %c \n", i, i); 
-    }
+    // for (int i = 97; i < 123; i++) {
+    //     printf("index: %d \t char: %c \n", i, i); 
+    // }
 
     // for (int i = 65; i < 91; i++) {
     //     printf("index: %d \t char: %c \n", i, i); 
@@ -92,6 +93,10 @@ int main(int argc, char const *argv[])
     // printf("%d\n", &b); 
     // b++; 
     // printf("%d\n", &b); 
+
+    uint8_t n = 250; 
+    uint8_t nn = n+30; 
+    printf("%d\n", nn); 
 
     return 0;
 }
