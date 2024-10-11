@@ -78,13 +78,8 @@ int binSearch(vector<int> arr, int x) {
 }
 
 int main() {
-    vector<int> n1 = {0,0,3,4,5}; 
-    vector<int> n2 = {1,2,3,4,5}; 
 
-    int r1 = binSearch(n1, 2); 
+    queue<int> ran; 
 
-    cout << r1 << endl; 
-
-    cout << endl;
     return 0;   
 }
