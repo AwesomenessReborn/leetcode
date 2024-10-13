@@ -60,23 +60,19 @@ public:
         int low = 1, high = n;
         
         while (low <= high) {
-            // Avoid overflow with this formula
             int mid = low + (high - low) / 2;
             int res = guess(mid);
             
             if (res == 0) {
-                // We've found the correct number
                 return mid;
             } else if (res == -1) {
-                // The guessed number is too high
                 high = mid - 1;
             } else {
-                // The guessed number is too low
                 low = mid + 1;
             }
         }
         
-        return -1; // This should never be reached
+        return -1; 
     }
 };
 
