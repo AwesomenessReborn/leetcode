@@ -79,11 +79,13 @@ int binSearch(vector<int> arr, int x) {
 
 int main() {
 
-    int i = 0;  
-    cout << i << endl; 
-    cout << ~i << endl; 
-    cout << !i << endl; 
-    // queue<int> ran; 
+    string s = "1234"; 
+    cout << s.substr(0) << endl;
+    cout << s.substr(1) << endl;
+    cout << s.substr(2) << endl;
+    cout << s.substr(3) << endl;
+    cout << s.substr(4) << endl;
+
 
     return 0;   
 }
