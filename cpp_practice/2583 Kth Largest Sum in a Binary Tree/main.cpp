@@ -60,15 +60,50 @@ struct TreeNode {
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+
+struct GreaterValue {
+    bool operator()(const int &a, const int &b) {
+        return a > b; 
+    }
+};
+
 class Solution {
 public:
     long long kthLargestLevelSum(TreeNode* root, int k) {
-        
+        vector<long long> record; 
+
+        dig(root, 0, record); 
+        if (record.size() < k) return -1; 
+
+        priority_queue<long long, vector<long long>, greater<long long>> hp; 
+
+        for (long long sum : record) {
+            hp.push(sum); 
+            if (hp.size() > k) {
+                hp.pop(); 
+            }
+        }
+
+        return hp.top(); 
+    }
+private: 
+    void dig(TreeNode* root, int level, vector<long long> &sumsque) {
+        if (root == nullptr) return; 
+
+        if  (level >= sumsque.size()) {
+            sumsque.push_back(0); 
+        }
+
+        sumsque[level] += root->val; 
+
+        dig(root->left, level+1, sumsque); 
+        dig(root->right, level+1, sumsque); 
     }
 };
 
 int main(int argc, char const *argv[])
 {
+
 
     return 0;
 }
