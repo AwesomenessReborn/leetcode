@@ -1,4 +1,4 @@
-// https://leetcode.com/problems/circular-sentence/?envType=daily-question&envId=2024-11-02
+
 
 #include <bitset>
 #include <map>
@@ -42,22 +42,29 @@ void printArray(std::vector<T> values) {
 
 class Solution {
 public:
-    bool isCircularSentence(string sentence) {
-
-        if (*sentence.begin() != sentence.back()) return false; 
+    bool isBalanced(string num) {
         
-        for (int i = 0; i < sentence.size(); i++) {
-            if (sentence[i] == ' ') {
-                if (sentence[i-1] != sentence[i+1]) return false; 
+        int odd = 0; 
+        int even = 0; 
+        for (int i = 0; i < num.size(); i++) {
+            if (i % 2 == 0) {
+                even += (num[i] - 48); 
+            } else {
+                odd += (num[i] - 48); 
             }
         }
-
-        return true; 
+        return odd == even; 
     }
 };
 
+
 int main(int argc, char const *argv[])
 {
+    Solution sol; 
+    cout << sol.isBalanced("1234") << endl; 
+    cout << sol.isBalanced("24123") << endl; 
 
     return 0;
+
 }
+

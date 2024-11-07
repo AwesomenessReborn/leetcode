@@ -39,6 +39,7 @@ void printArray(std::vector<T> values) {
     std::cout << "]" << std::endl; 
 }
 
+
 struct CompareDistance {
     bool operator()(const std::pair<int, int>& a, const std::pair<int, int>& b) {
         return (a.first * a.first + a.second * a.second) > (b.first * b.first + b.second * b.second);
@@ -79,13 +80,17 @@ int binSearch(vector<int> arr, int x) {
 
 int main() {
 
-    string s = "1234"; 
-    cout << s.substr(0) << endl;
-    cout << s.substr(1) << endl;
-    cout << s.substr(2) << endl;
-    cout << s.substr(3) << endl;
-    cout << s.substr(4) << endl;
+    string s = "09"; 
+    cout << ((int)s[0])-48 << endl; 
+    cout << ((int)s[1])-48 << endl; 
 
+    queue<int> qq; 
+
+    qq.push(1); 
+
+    qq.push(1); 
+    qq.push(1); 
+    qq.push(1); 
 
     return 0;   
 }
