@@ -81,16 +81,27 @@ int binSearch(vector<int> arr, int x) {
 int main() {
 
     string s = "09"; 
-    cout << ((int)s[0])-48 << endl; 
-    cout << ((int)s[1])-48 << endl; 
+    // cout << ((int)s[0])-48 << endl; 
+    // cout << ((int)s[1])-48 << endl; 
+    // cout << (int)'a' << endl; 
+    // cout << (int)'z' << endl; 
+    // cout << (int)'A' << endl; 
+    // cout << (int)'Z' << endl; 
 
-    queue<int> qq; 
+    // string sss = "djflaj"; 
+    // cout << (int)sss[0] << endl; 
+    // cout << (int)sss[2] << endl; 
 
-    qq.push(1); 
+    cout << (int)'0' << endl; 
+    cout << (int)'9' << endl; 
 
-    qq.push(1); 
-    qq.push(1); 
-    qq.push(1); 
+    // queue<int> qq; 
+
+    // qq.push(1); 
+
+    // qq.push(1); 
+    // qq.push(1); 
+    // qq.push(1); 
 
     return 0;   
 }
