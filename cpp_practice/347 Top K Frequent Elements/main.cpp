@@ -39,29 +39,46 @@ void printArray(std::vector<T> values) {
     std::cout << "]" << std::endl; 
 } 
 
+
+/**
+ * build frequency hash map, 
+ * 
+ * then heapify using second element, which should be frequency. 
+ * 
+ * use heap algorithms for <algorithm> header
+ */
 class Solution {
+private: 
+    static bool compare(const std::pair<int, int>& a, const std::pair<int, int>& b) {
+        return a.first > b.first;
+    }
 public:
     vector<int> topKFrequent(vector<int>& nums, int k) {
-        unordered_map<int, int> fmap; 
+        if (nums.size() == k) return nums; 
+
+        vector<int> ans; 
+        ans.reserve(k); 
+
+        unordered_map<int, int> fmap;  // element -> frequency
 
         for (int value : nums) {
             fmap[value]++; 
         }
 
-        vector<std::pair<int, int>> rfmap; 
-        for (auto it = fmap.begin(); it != fmap.end(); ++it) {
-            rfmap.push_back(std::make_pair(it->second, it->first)); 
+        vector<std::pair<int, int>> topk; // frequency -> element ... for frequency (min-heap)
+        for (std::unordered_map<int, int>::iterator target = fmap.begin(); target != fmap.end(); ++target) {
+
+            topk.push_back(std::make_pair(target->second, target->first)); 
+            std::push_heap(topk.begin(), topk.end(), compare); 
+
+            if (topk.size() > k) {
+                std::pop_heap(topk.begin(), topk.end(), compare); 
+                topk.pop_back(); 
+            }
         }
 
-        std::make_heap(rfmap.begin(), rfmap.end(), [](pair<int, int> ff, pair<int, int> ss){
-            return ff.first < ss.first; 
-        }); 
-
-        vector<int> ans; 
-        for (int i = 0; i < k; i++) {
-            ans.push_back(rfmap[0].second); 
-            pop_heap(rfmap.begin(), rfmap.end()); 
-            rfmap.pop_back(); 
+        for (std::pair<int, int> rec : topk) {
+            ans.push_back(rec.second); 
         }
 
         return ans; 
