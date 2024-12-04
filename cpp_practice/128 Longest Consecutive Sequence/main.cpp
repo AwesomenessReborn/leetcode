@@ -1,12 +1,23 @@
 // https://leetcode.com/problems/longest-consecutive-sequence/description/
 
+#include <bitset>
+#include <map>
+#include <math.h>
+#include <algorithm>
 #include <iostream>
 #include <array>
+#include <iterator> 
 #include <vector>
+#include <ios>
+#include <limits>
+#include <sstream> 
+#include <string> 
+
+#include <set>
+#include <unordered_set>
 #include <map>
 #include <unordered_map>
-#include <set>
-#include <algorithm>
+#include <queue>
 
 using namespace std; 
 
@@ -29,27 +40,55 @@ void printArray(std::vector<T> values) {
     std::cout << "]" << std::endl; 
 }
 
+
+struct CompareDistance {
+    bool operator()(const std::pair<int, int>& a, const std::pair<int, int>& b) {
+        return (a.first * a.first + a.second * a.second) > (b.first * b.first + b.second * b.second);
+    }
+};
+
+bool compare(const std::pair<int, int>& a, const std::pair<int, int>& b) {
+    return (a.first * a.first + a.second * a.second) > (b.first * b.first + b.second * b.second);
+}
+
 class Solution {
 public:
     int longestConsecutive(vector<int>& nums) {
         if (nums.empty()) return 0; 
 
-        set<int> store(nums.begin(), nums.end()); 
+        int longest = 0; 
+        int counter, value; 
 
-        int longest=1; 
-        auto prev = store.begin(); 
-        int streak=1; 
-        for (auto it = next(store.begin()); it != store.end(); ++it) {
-            if (*prev + 1 == *it) {
-                streak++; 
-            } else {
-                longest = max(longest, streak); 
-                streak = 1; 
-            }
+        unordered_set<int> rec(nums.begin(), nums.end()); 
 
-            prev = it; 
+        for (int i = 0; i < nums.size(); i++) {
+            /**
+             * only make a measurement if: 
+             *      1. if beginning of the consecutive elements. 
+             *      2. if even found in set. 
+             * 
+             * make sure to: 
+             *      1. remove elements after measurement was taken. 
+             */
+            value = nums[i]; 
+            auto it = rec.find(value); 
+            if (it == rec.end()) continue; 
+            if (rec.find(value - 1) != rec.end()) continue;
+
+            // now we know conditions passed, perform measurement. 
+            counter = 1; 
+            rec.erase(value);
+            value++; 
+            it = rec.find(value); 
+            while (it != rec.end()) {
+                value++;
+                counter++; 
+                rec.erase(it); 
+                it = rec.find(value); 
+            } 
+
+            longest = std::max(counter, longest); 
         }
-        longest = max(longest, streak); 
 
         return longest; 
     }
