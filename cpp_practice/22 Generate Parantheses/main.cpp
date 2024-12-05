@@ -1,3 +1,4 @@
+// https://leetcode.com/problems/generate-parentheses/description/
 
 #include <stack> 
 #include <bitset>
@@ -79,39 +80,44 @@ int binSearch(vector<int> arr, int x) {
     }
 }
 
-int main() {
 
-    // string s = "09"; 
-    // cout << ((int)s[0])-48 << endl; 
-    // cout << ((int)s[1])-48 << endl; 
-    // cout << (int)'a' << endl; 
-    // cout << (int)'z' << endl; 
-    // cout << (int)'A' << endl; 
-    // cout << (int)'Z' << endl; 
+class Solution {
+public:
+    vector<string> generateParenthesis(int n) {
+        vector<string> ans; 
 
-    // string sss = "djflaj"; 
-    // cout << (int)sss[0] << endl; 
-    // cout << (int)sss[2] << endl; 
+        std::string cur; 
+        cur.reserve(n*2); 
 
-    std::string s; 
+        helper(ans, cur, 0, 0, n); 
 
-    s.reserve(2); 
+        return ans; 
+    }
+private: 
+    void helper(vector<string>& ans, string& str, int open, int close, int n) {
 
-    s.push_back('a'); 
+        if (str.size() == (n*2)) {
+            ans.push_back(str); 
+            return; 
+        }
 
-    s.push_back('a'); 
-    s.push_back('a'); 
-    s.push_back('a'); 
+        if (open < n) {
+            str.push_back('('); 
+            helper(ans, str, open+1, close, n); 
+            str.pop_back(); 
+        }
 
-    cout << s << endl ; 
+        if (close < open) {
+            str.push_back(')'); 
+            helper(ans, str, open, close + 1, n); 
+            str.pop_back(); 
+        }
 
-    // queue<int> qq; 
+    }
+};
 
-    // qq.push(1); 
+int main(int argc, char const *argv[])
+{
 
-    // qq.push(1); 
-    // qq.push(1); 
-    // qq.push(1); 
-
-    return 0;   
+    return 0;
 }
