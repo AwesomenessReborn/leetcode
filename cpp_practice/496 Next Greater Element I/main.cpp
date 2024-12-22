@@ -1,4 +1,4 @@
-// https://leetcode.com/problems/daily-temperatures/description/
+// https://leetcode.com/problems/next-greater-element-i/description/?envType=problem-list-v2&envId=monotonic-stack
 
 #include <stack> 
 #include <bitset>
@@ -80,53 +80,31 @@ int binSearch(vector<int> arr, int x) {
     }
 }
 
-// class Solution {
-// public:
-//     vector<int> dailyTemperatures(vector<int>& temperatures) {
-//         stack<int> s; 
-
-//         vector<int> ans; 
-//         ans.reserve(temperatures.size()); 
-
-//         s.push(0); 
-
-//         for (int i = 0; i < temperatures.size(); i++) {
-//             if (s.empty()) {
-//                 s.push(i); 
-//                 continue;
-//             }
-
-//             while (!s.empty() && temperatures[s.top()] < temperatures[i]) {
-//                 ans[s.top()] = temperatures[i]; 
-//                 s.pop(); 
-//             }
-
-//             s.push(i); 
-//         }
-
-//         while (!s.empty()) {
-//             ans[s.top()] = 0; 
-//         }
-
-//         return ans; 
-//     }
-// };
-
 class Solution {
 public:
-    vector<int> dailyTemperatures(vector<int>& temperatures) {
-        int n = temperatures.size(); 
-        stack<int> dec; 
-        vector<int> ans(n, 0); 
+    vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
+        unordered_map<int, int> processed;  // value -> it's NGE
 
-        for (int tmp_idx = 0; tmp_idx < n; tmp_idx++) {
-            while (!dec.empty() && temperatures[dec.top()] < temperatures[tmp_idx]) {
-                ans[dec.top()] = tmp_idx - dec.top(); 
+        stack<int> dec; 
+        dec.push(nums2[0]); 
+        for (int i = 1; i < nums2.size(); i++) {
+            while (!dec.empty() && nums2[i] > dec.top()) {
+                processed[dec.top()] = nums2[i]; 
                 dec.pop(); 
             }
-            dec.push(tmp_idx); 
+            dec.push(nums2[i]); 
         }
-        
+
+        vector<int> ans(nums1.size(), -1); 
+
+        for (int i = 0; i < nums1.size(); i++) {
+            auto pot = processed.find(nums1[i]);  
+
+            if (pot != processed.end()) {
+                ans[i] = pot->second; 
+            }
+        }
+
         return ans; 
     }
 };
@@ -135,4 +113,5 @@ int main(int argc, char const *argv[])
 {
 
     return 0;
+
 }
