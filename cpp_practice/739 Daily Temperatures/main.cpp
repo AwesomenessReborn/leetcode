@@ -1,3 +1,4 @@
+// https://leetcode.com/problems/daily-temperatures/description/
 
 #include <stack> 
 #include <bitset>
@@ -79,64 +80,15 @@ int binSearch(vector<int> arr, int x) {
     }
 }
 
-int main() {
-
-    // string s = "09"; 
-    // cout << ((int)s[0])-48 << endl; 
-    // cout << ((int)s[1])-48 << endl; 
-    // cout << (int)'a' << endl; 
-    // cout << (int)'z' << endl; 
-    // cout << (int)'A' << endl; 
-    // cout << (int)'Z' << endl; 
-
-    // string sss = "djflaj"; 
-    // cout << (int)sss[0] << endl; 
-    // cout << (int)sss[2] << endl; 
-
-    // std::string s = "DATA STRUCTURES"; 
-
-    // unordered_map<char, int> fmap; 
-    // for (char c : s) {
-    //     fmap[c]++; 
-    // }
-
-    // for (auto it = fmap.begin(); it != fmap.end(); ++it) {
-    //     cout << "char " << it->first << " : " << it->second << endl; 
-    // }
-
-    std::vector<int> rr; 
-    rr.reserve(11); 
-
-    for (int i = 0; i < 11; i++) {
-        rr.push_back(i); 
+class Solution {
+public:
+    vector<int> dailyTemperatures(vector<int>& temperatures) {
+        
     }
+};
 
-    cout << rr.capacity() << endl; 
+int main(int argc, char const *argv[])
+{
 
-    cout << "after " << endl; 
-
-    rr.push_back(1010); 
-
-    cout << rr.capacity() << endl; 
-
-
-    // s.reserve(2); 
-
-    // s.push_back('a'); 
-
-    // s.push_back('a'); 
-    // s.push_back('a'); 
-    // s.push_back('a'); 
-
-    // cout << s << endl ; 
-
-    // queue<int> qq; 
-
-    // qq.push(1); 
-
-    // qq.push(1); 
-    // qq.push(1); 
-    // qq.push(1); 
-
-    return 0;   
+    return 0;
 }
