@@ -1,3 +1,4 @@
+// https://leetcode.com/problems/divisor-game/description/?envType=problem-list-v2&envId=dynamic-programming
 
 #include <stack> 
 #include <bitset>
@@ -51,47 +52,15 @@ void printDoubleArray(std::vector<std::vector<T>> values) {
     cout << "]"; 
 }
 
-struct CompareDistance {
-    bool operator()(const std::pair<int, int>& a, const std::pair<int, int>& b) {
-        return (a.first * a.first + a.second * a.second) > (b.first * b.first + b.second * b.second);
+class Solution {
+public:
+    bool divisorGame(int n) {
+        return n % 2 == 0; 
     }
 };
 
-bool compare(const std::pair<int, int>& a, const std::pair<int, int>& b) {
-    return (a.first * a.first + a.second * a.second) > (b.first * b.first + b.second * b.second);
-}
+int main(int argc, char const *argv[])
+{
 
-// return index of target: 
-int binSearch(vector<int> arr, int x) {
-
-    int left = 0, right = arr.size()-1; 
-    int mid; 
-
-    while (left <= right) {
-        mid = left + (right - left) / 2; 
-
-        if (arr[mid] == x) {
-            return mid; 
-        } else if (arr[mid] > x) {
-            right = mid - 1; 
-        } else {
-            left = mid + 1; 
-        }
-    }
-
-    if (right < 0) return 0; 
-    if (left >= arr.size()) return arr.size() - 1; 
-
-    if (abs(arr[left]-x) < abs(arr[right] - x)) {
-        return left; 
-    } else {
-        return right; 
-    }
-}
-
-int main() {
-    
-
-
-    return 0;   
+    return 0;
 }

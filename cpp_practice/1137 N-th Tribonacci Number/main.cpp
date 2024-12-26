@@ -1,3 +1,4 @@
+// https://leetcode.com/problems/n-th-tribonacci-number/?envType=problem-list-v2&envId=dynamic-programming
 
 #include <stack> 
 #include <bitset>
@@ -89,9 +90,33 @@ int binSearch(vector<int> arr, int x) {
     }
 }
 
-int main() {
-    
+class Solution {
+public:
+    int tribonacci(int n) {
+        if (n == 0) return 0; 
+        if (n == 1) return 1; 
+        if (n == 2) return 1; 
 
+        std::array<int, 3> qq = {0, 1, 1}; 
+        
+        int pu; 
+        for (int i = 3; i <= n; i++) {
+            pu = qq[0] + qq[1] + qq[2]; 
+            qq[0] = qq[1]; 
+            qq[1] = qq[2]; 
+            qq[2] = pu; 
+        }
+        return pu; 
+    }
+};
 
-    return 0;   
+int main(int argc, char const *argv[])
+{
+    Solution s; 
+
+    for (int i = 0; i < 37; i++) {
+        cout << "i: " << i << "\t\t --> " << s.tribonacci(i) << "\n"; 
+    }
+
+    return 0;
 }

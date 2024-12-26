@@ -1,3 +1,4 @@
+// https://leetcode.com/problems/number-of-distinct-averages/description/?envType=problem-list-v2&envId=two-pointers
 
 #include <stack> 
 #include <bitset>
@@ -51,47 +52,32 @@ void printDoubleArray(std::vector<std::vector<T>> values) {
     cout << "]"; 
 }
 
-struct CompareDistance {
-    bool operator()(const std::pair<int, int>& a, const std::pair<int, int>& b) {
-        return (a.first * a.first + a.second * a.second) > (b.first * b.first + b.second * b.second);
+class Solution {
+public:
+    int distinctAverages(vector<int>& nums) {
+        std::sort(nums.begin(), nums.end()); 
+
+        int left = 0, right = nums.size()-1; 
+        unordered_set<float> vals; 
+
+        while (left < right) {
+            vals.insert((float)(nums[left] + nums[right]) / 2); 
+            left++; right--; 
+        }
+
+        return vals.size(); 
     }
 };
 
-bool compare(const std::pair<int, int>& a, const std::pair<int, int>& b) {
-    return (a.first * a.first + a.second * a.second) > (b.first * b.first + b.second * b.second);
-}
+int main(int argc, char const *argv[])
+{
+    vector<int> n1 = {
+        9,5,7,8,7,9,8,2,0,7
+    }; 
 
-// return index of target: 
-int binSearch(vector<int> arr, int x) {
+    Solution s; 
 
-    int left = 0, right = arr.size()-1; 
-    int mid; 
+    cout << s.distinctAverages(n1) << endl; 
 
-    while (left <= right) {
-        mid = left + (right - left) / 2; 
-
-        if (arr[mid] == x) {
-            return mid; 
-        } else if (arr[mid] > x) {
-            right = mid - 1; 
-        } else {
-            left = mid + 1; 
-        }
-    }
-
-    if (right < 0) return 0; 
-    if (left >= arr.size()) return arr.size() - 1; 
-
-    if (abs(arr[left]-x) < abs(arr[right] - x)) {
-        return left; 
-    } else {
-        return right; 
-    }
-}
-
-int main() {
-    
-
-
-    return 0;   
+    return 0;
 }

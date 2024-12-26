@@ -1,3 +1,4 @@
+// https://leetcode.com/problems/min-cost-climbing-stairs/?envType=problem-list-v2&envId=dynamic-programming
 
 #include <stack> 
 #include <bitset>
@@ -89,9 +90,36 @@ int binSearch(vector<int> arr, int x) {
     }
 }
 
-int main() {
-    
+/**
+ * no backtracking. 
+ * 
+ * use dfs. 
+ */
+class Solution {
+public:
+    int minCostClimbingStairs(vector<int>& cost) {
+        int n = cost.size(); 
+        vector<int> red(n, 0);
+        red[n-1] = cost[n-1]; 
+        red[n-2] = cost[n-2]; 
 
+        for (int i = cost.size() - 3; i >= 0; i--) {
+            red[i] = cost[i] + std::min(red[i+1], red[i+2]); 
+        }
 
-    return 0;   
+        return std::min(red[0], red[1]); 
+    }
+};
+
+int main(int argc, char const *argv[])
+{
+    vector<int> n1 = {10,15,20}; 
+    vector<int> n2 = {1,100,1,1,1,100,1,1,100,1}; 
+
+    Solution s; 
+
+    cout << s.minCostClimbingStairs(n1) << endl; 
+    cout << s.minCostClimbingStairs(n2) << endl; 
+
+    return 0;
 }
