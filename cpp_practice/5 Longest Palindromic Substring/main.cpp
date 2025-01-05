@@ -93,8 +93,49 @@ int binSearch(vector<int> arr, int x) {
 class Solution {
 public:
     string longestPalindrome(string s) {
-        
-        return ""; 
+        if (s.size() == 1) return s; 
+
+        // begin index is inclusive, end index is exclusive
+        std::array<int, 2> odd = {-1, -1}, even = {-1, -1}; // keep track of longest. 
+        const int n = s.size(); 
+
+        std::array<int, 2> buffer; 
+
+        // even case: 
+        for (int i = 0; i < n-1; i++) {
+            
+            buffer = {i+1, i};      // begin with indexes in wrong order. 
+            while ((buffer[0]-1) >= 0 && (buffer[1]+1) < n &&
+                s[buffer[0]-1] == s[buffer[1]+1]) {
+                buffer[0]--; 
+                buffer[1]++; 
+            }
+            
+            if (buffer[1] - buffer[0] > even[1] - even[0]) {
+                even = buffer; 
+            }
+        }
+
+        // odd case: 
+        for (int i = 0; i < n; i++) {
+
+            buffer = {i, i};        // begin at same index. 
+            while ((buffer[0]-1) >= 0 && (buffer[1]+1) < n 
+                && s[buffer[0]-1] == s[buffer[1]+1]) {
+                buffer[0]--; 
+                buffer[1]++; 
+            }
+             
+            if (buffer[1] - buffer[0] > odd[1] - odd[0]) {
+                odd = buffer; 
+            }
+
+        }
+
+        if (odd[1] - odd[0] > even[1] - even[0]) {
+            return s.substr(odd[0], odd[1]-odd[0]+1); 
+        }
+        return s.substr(even[0], even[1]-even[0]+1); 
     }
 };
 
@@ -102,7 +143,7 @@ int main(int argc, char const *argv[])
 {
     string s1 = "babad"; 
     string s2 = "cbbd"; 
-
+    string s3 = "a"; 
 
     Solution s; 
 
@@ -112,6 +153,10 @@ int main(int argc, char const *argv[])
 
     cout << "result: \t" << s.longestPalindrome(s2) << endl; 
     cout << "expected: \t" << "bb" << endl; 
+    cout << endl; 
+
+    cout << "result: \t" << s.longestPalindrome(s3) << endl; 
+    cout << "expected: \t" << "a" << endl; 
     cout << endl; 
 
     return 0;

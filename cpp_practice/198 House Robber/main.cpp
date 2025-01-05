@@ -1,4 +1,5 @@
 
+
 #include <stack> 
 #include <bitset>
 #include <map>
@@ -89,18 +90,50 @@ int binSearch(vector<int> arr, int x) {
     }
 }
 
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        if (nums.size() == 1) return nums[0]; 
+        if (nums.size() == 2) return std::max(nums[0], nums[1]); 
+
+        int pot, pp = nums[0], p = std::max(nums[0], nums[1]); 
+
+        // cout << "pot: " << pot << endl; cout << "p: " << p << endl; 
+        // cout << "pp: " << pp << endl; 
+
+        // cout << endl; 
+
+        for (int i = 2; i < nums.size(); i++) {
+            pot = std::max(p, pp + nums[i]); 
+
+            pp = p; 
+            p = pot; 
+
+            // cout << "pot: " << pot << endl; 
+            // cout << "p: " << p << endl; 
+            // cout << "pp: " << pp << endl; 
+            // cout << endl; 
+        }
+
+        return std::max(pp, p); 
+    }
+};
+
 int main() {
+    vector<int> n1 = {1,2,3,1}; 
+    vector<int> n2 = {2,7,9,3,1}; 
+    vector<int> n3 = {2,1,1,2}; 
     
-    unsigned int hh = 0; 
+    Solution s; 
 
-    hh |= (1 << (((int)('a' - 'a')))); 
-    hh |= (1 << (((int)('b' - 'a')))); 
-    // hh |= (1 << (((int)('c' - 'a')))); 
-    // hh |= (1 << (((int)('d' - 'a')))); 
-    // hh |= (1 << (((int)('e' - 'a')))); 
-    hh |= (1 << (((int)('z' - 'a')))); 
+    // cout << s.rob(n1) << endl; 
+    // cout << "expected: 4 \n" << endl; 
 
-    cout << hh << endl; 
+    // cout << s.rob(n2) << endl; 
+    // cout << "expected: 12 \n" << endl; 
+
+    cout << s.rob(n3) << endl; 
+    cout << "expected: 4 \n" << endl; 
 
     return 0;   
 }

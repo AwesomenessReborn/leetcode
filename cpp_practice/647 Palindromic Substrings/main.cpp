@@ -1,3 +1,4 @@
+// https://leetcode.com/problems/palindromic-substrings/description/
 
 #include <stack> 
 #include <bitset>
@@ -89,18 +90,61 @@ int binSearch(vector<int> arr, int x) {
     }
 }
 
+class Solution {
+public:
+    int countSubstrings(string s) {
+        const int n = s.size(); 
+        int cc = n; 
+
+        std::array<int, 2> buffer; 
+
+        // even case: 
+        for (int i = 0; i < n-1; i++) {
+
+            buffer = {i+1, i}; 
+            while (
+                (buffer[0]-1) >= 0 && (buffer[1]+1) < n &&
+                s[buffer[0]-1] == s[buffer[1]+1]
+            ) {
+                cc++; 
+                buffer[0]--; 
+                buffer[1]++; 
+            }
+        }
+
+        // odd case: 
+        for (int i = 0; i < n; i++) {
+
+            buffer = {i, i}; 
+            while (
+                (buffer[0]-1) >= 0 && (buffer[1]+1) < n 
+                && s[buffer[0]-1] == s[buffer[1]+1]
+            ) {
+                cc++; 
+                buffer[0]--; 
+                buffer[1]++; 
+            }
+        }
+
+        return cc; 
+    }
+};
+
 int main() {
-    
-    unsigned int hh = 0; 
+    string s1 = "abc"; 
+    string s2 = "aaa"; 
+    string s3 = "aaaa"; 
 
-    hh |= (1 << (((int)('a' - 'a')))); 
-    hh |= (1 << (((int)('b' - 'a')))); 
-    // hh |= (1 << (((int)('c' - 'a')))); 
-    // hh |= (1 << (((int)('d' - 'a')))); 
-    // hh |= (1 << (((int)('e' - 'a')))); 
-    hh |= (1 << (((int)('z' - 'a')))); 
+    Solution s; 
 
-    cout << hh << endl; 
+    cout << s.countSubstrings(s1) << endl; 
+    cout << "expected: 3\n" << endl; 
+
+    cout << s.countSubstrings(s2) << endl; 
+    cout << "expected: 6\n" << endl; 
+
+    cout << s.countSubstrings(s3) << endl; 
+    cout << "expected: ?\n" << endl; 
 
     return 0;   
 }

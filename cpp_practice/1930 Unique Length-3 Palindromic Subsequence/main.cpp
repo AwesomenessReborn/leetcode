@@ -1,3 +1,4 @@
+// https://leetcode.com/problems/unique-length-3-palindromic-subsequences/?envType=daily-question&envId=2025-01-04
 
 #include <stack> 
 #include <bitset>
@@ -89,18 +90,66 @@ int binSearch(vector<int> arr, int x) {
     }
 }
 
+struct ArrayHash {
+    std::size_t operator()(const std::array<char, 3>& arr) const {
+        std::size_t hash = 0;
+        for (int num : arr) {
+            hash ^= std::hash<char>{}(num) + 0x9e3779b9 + (hash << 6) + (hash >> 2);
+        }
+        return hash;
+    }
+};
+
+class Solution {
+public:
+    int countPalindromicSubsequence(string s) {
+        const int n = s.size(); 
+        int cc = 0; 
+        unsigned int hh; 
+
+        for (char pc = 'a'; pc != '{'; pc++) {
+            int l = 0, r = n-1; 
+
+            while (l < n && s[l] != pc) l++; 
+            while (r >= 0 && s[r] != pc) r--; 
+
+            if (l >= r || s[l] != pc || s[r] != pc) {
+                continue;  // cannot make palindrome 
+            }
+            // otherwise, it seems that they are valid bounds, palindrome possible. 
+            if (r - l > 1) {
+                hh = 0; 
+                
+                for (int chk = l+1; chk < r; chk++) {
+                    if (hh & (1 << (s[chk] - 97))) {
+                        continue;
+                    } else {
+                        cc++; 
+                        hh |= (1 << (s[chk] - 97)); 
+                    }
+                }
+            }
+        }
+
+        return cc;
+    }
+};
+
 int main() {
-    
-    unsigned int hh = 0; 
+    string s1 = "aabca"; 
+    string s2 = "adc"; 
+    string s3 = "bbcbaba"; 
 
-    hh |= (1 << (((int)('a' - 'a')))); 
-    hh |= (1 << (((int)('b' - 'a')))); 
-    // hh |= (1 << (((int)('c' - 'a')))); 
-    // hh |= (1 << (((int)('d' - 'a')))); 
-    // hh |= (1 << (((int)('e' - 'a')))); 
-    hh |= (1 << (((int)('z' - 'a')))); 
+    Solution s; 
 
-    cout << hh << endl; 
+    cout << s.countPalindromicSubsequence(s1) << endl; 
+    cout << "expected 3\n" << endl; 
+
+    cout << s.countPalindromicSubsequence(s2) << endl; 
+    cout << "expected 0\n" << endl; 
+
+    cout << s.countPalindromicSubsequence(s3) << endl; 
+    cout << "expected 4\n" << endl; 
 
     return 0;   
 }
