@@ -1,3 +1,4 @@
+// https://leetcode.com/problems/shifting-letters-ii/description/?envType=daily-question&envId=2025-01-05
 
 #include <stack> 
 #include <bitset>
@@ -9,7 +10,7 @@
 #include <iterator> 
 #include <vector>
 #include <ios>
-#include <climits>
+#include <limits>
 #include <sstream> 
 #include <string> 
 
@@ -89,13 +90,61 @@ int binSearch(vector<int> arr, int x) {
     }
 }
 
-int main() {
+class Solution {
+public:
+    string shiftingLetters(string s, vector<vector<int>>& shifts) {
+        const int n = s.size(); 
 
-    for (int i = 'a'; i <= 'z'; i++) {
-        cout << i << ":" << (char)i << endl;  
+        vector<int> cs(n, 0); 
+        int dir; 
+
+        for (const auto& shift : shifts) {
+            dir = shift[2] == 1 ? 1:-1; 
+
+            cs[shift[0]] += dir; 
+            
+            if (shift[1] + 1 < n) cs[shift[1] + 1] -= dir; 
+        }
+
+        int cumshift = 0; 
+
+        for (int i = 0; i < n; ++i) {
+            cumshift += cs[i]; 
+            cumshift %= 26; 
+
+            int nn = s[i] - 'a'; 
+            nn += cumshift; 
+            if (nn < 0) nn += 26; 
+            if (nn >= 26) nn-= 26; 
+            s[i] = 'a' + nn; 
+        }
+
+        return s; 
     }
+};
 
-    // [97, 122]
+int main() {
+    string s1 = "abc"; 
+    string s2 = "dztz"; 
+
+    vector<vector<int>> ss1 = {
+        {0, 1, 0}, 
+        {1,2,1}, 
+        {0,2,1}
+    }; 
+    vector<vector<int>> ss2 = {
+        {0,0,0}, 
+        {1,1,1}
+    }; 
+
+    Solution s; 
+
+    cout << s.shiftingLetters(s1, ss1) << endl; 
+    cout << "expected: ace\n" << endl; 
+
+    cout << s.shiftingLetters(s2, ss2) << endl; 
+    cout << "expected: catz\n" << endl; 
     
+
     return 0;   
 }

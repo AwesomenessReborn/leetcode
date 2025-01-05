@@ -1,3 +1,4 @@
+// https://leetcode.com/problems/minimum-falling-path-sum/description/
 
 #include <stack> 
 #include <bitset>
@@ -89,13 +90,51 @@ int binSearch(vector<int> arr, int x) {
     }
 }
 
+
+class Solution {
+public:
+    int minFallingPathSum(vector<vector<int>>& matrix) {
+        const int n = matrix.size();
+        if (n == 1) return matrix[0][0];
+
+        vector<int> p_dp(n), dp(n);
+
+        for (int row = 0; row < n; row++) {
+            if (row == 0) {
+                p_dp = matrix[row]; 
+                continue;
+            }
+
+            for (int col = 0; col < n; col++) {
+                if (col == 0) {
+                    // Left value doesn't exist.
+                    dp[col] = matrix[row][col] + std::min(p_dp[col], p_dp[col + 1]);
+                } else if (col == n - 1) {
+                    // Right value doesn't exist.
+                    dp[col] = matrix[row][col] + std::min(p_dp[col - 1], p_dp[col]);
+                } else {
+                    dp[col] = matrix[row][col] + std::min(p_dp[col - 1], std::min(p_dp[col], p_dp[col + 1]));
+                }
+            }
+
+            p_dp = dp;
+
+            // printArray(p_dp);
+            // printArray(dp);
+            // cout << endl;
+        }
+
+        int minSum = INT_MAX;
+        for (int i = 0; i < n; i++) {
+            minSum = std::min(dp[i], minSum);
+        }
+
+        return minSum;
+    }
+};
+
 int main() {
 
-    for (int i = 'a'; i <= 'z'; i++) {
-        cout << i << ":" << (char)i << endl;  
-    }
-
-    // [97, 122]
     
     return 0;   
 }

@@ -1,3 +1,4 @@
+// https://leetcode.com/problems/shifting-letters/description/
 
 #include <stack> 
 #include <bitset>
@@ -9,7 +10,7 @@
 #include <iterator> 
 #include <vector>
 #include <ios>
-#include <climits>
+#include <limits>
 #include <sstream> 
 #include <string> 
 
@@ -89,13 +90,47 @@ int binSearch(vector<int> arr, int x) {
     }
 }
 
-int main() {
+class Solution {
+public:
+    string shiftingLetters(string s, vector<int>& shifts) {
+        const int n = s.size(); 
 
-    for (int i = 'a'; i <= 'z'; i++) {
-        cout << i << ":" << (char)i << endl;  
+        int ss = 0; 
+
+        for (int i = n-1; i >= 0; i--) {
+            ss += shifts[i]; 
+            ss %= 26; 
+
+            int c = s[i]; 
+            c += (ss); 
+            while (c > 'z') c-=26; 
+
+            s[i] = (char)c; 
+        }
+
+        return s; 
     }
+};
 
-    // [97, 122]
-    
+int main() {
+    string s1 = "abc"; 
+    string s2 = "aaa"; 
+    string s3 = "ruu"; 
+
+    vector<int> n1 = {3,5,9}; 
+    vector<int> n2 = {1,2,3}; 
+    vector<int> n3 = {26,9,17}; 
+
+    Solution s; 
+
+    cout << s.shiftingLetters(s1, n1) << endl; 
+    cout << "expected: rpl\n" << endl; 
+
+    cout << s.shiftingLetters(s2, n2) << endl; 
+    cout << "expected: gfd\n" << endl; 
+
+    cout << s.shiftingLetters(s3, n3) << endl; 
+    cout << "expected: ??\n" << endl; 
+
     return 0;   
 }
