@@ -35,32 +35,73 @@ void printArray(std::vector<T> values) {
     std::cout << "]" << std::endl; 
 }
 
+// class Solution {
+// public:
+//     vector<string> wordSubsets(vector<string>& words1, vector<string>& words2) {
+//         array<int, 26> letcounter_max = {}; 
+//         array<int, 26> letcounter_cur; 
+        
+//         for (string word : words2) {
+//             letcounter_cur.fill(0); 
+//             for (size_t i = 0; i < word.size(); i++)
+//             {
+//                 letcounter_cur[(word[i])-'a']++; 
+//             }
+//             for (int i = 0; i < 26; i++) {
+//                 letcounter_max[i] = max(letcounter_cur[i], letcounter_max[i]); 
+//             }
+//         }
+//         vector<string> ans; 
+//         for (string word : words1) {
+//             letcounter_cur.fill(0); 
+//             for (int i = 0; i < word.size(); i++) {
+//                 letcounter_cur[(word[i])-'a']++; 
+//             }
+//             for (int i = 0; i < 26; i++) {
+//                 if (letcounter_cur[i] < letcounter_max[i]) continue;
+//             }
+//             ans.push_back(word); 
+//         }
+
+//         return ans; 
+//     }
+// };
+
 class Solution {
 public:
     vector<string> wordSubsets(vector<string>& words1, vector<string>& words2) {
-        array<int, 26> letcounter_max = {}; 
-        array<int, 26> letcounter_cur; 
+        std::array<int, 26> letcounter_max = {}; 
+        std::array<int, 26> letcounter_cur; 
         
-        for (string word : words2) {
+        for (const string& word : words2) {
             letcounter_cur.fill(0); 
-            for (size_t i = 0; i < word.size(); i++)
-            {
-                letcounter_cur[(word[i])-'a']++; 
+            for (char c : word) {
+                letcounter_cur[c - 'a']++; 
             }
             for (int i = 0; i < 26; i++) {
-                letcounter_max[i] = max(letcounter_cur[i], letcounter_max[i]); 
+                letcounter_max[i] = std::max(letcounter_max[i], letcounter_cur[i]); 
             }
         }
+
         vector<string> ans; 
-        for (string word : words1) {
+
+        for (const string& word : words1) {
             letcounter_cur.fill(0); 
-            for (int i = 0; i < word.size(); i++) {
-                letcounter_cur[(word[i])-'a']++; 
+            for (char c : word) {
+                letcounter_cur[c - 'a']++; 
             }
+
+            bool is_universal = true;
             for (int i = 0; i < 26; i++) {
-                if (letcounter_cur[i] < letcounter_max[i]) continue;
+                if (letcounter_cur[i] < letcounter_max[i]) {
+                    is_universal = false;
+                    break;
+                }
             }
-            ans.push_back(word); 
+
+            if (is_universal) {
+                ans.push_back(word); 
+            }
         }
 
         return ans; 
