@@ -1,3 +1,4 @@
+// https://leetcode.com/problems/count-number-of-texts/
 
 #include <stack> 
 #include <bitset>
@@ -89,13 +90,52 @@ int binSearch(vector<int> arr, int x) {
     }
 }
 
+class Solution {
+public:
+    int countTexts(string pressedKeys) {
+        const int MOD = 10^9 + 7, n = pressedKeys.size(); 
+        
+
+
+    }
+private: 
+    string lookup(char c) {
+        switch (c)
+        {
+        case '2':
+            return "abc"; 
+            break;
+        case '3':
+            return "def"; 
+            break;
+        case '4':
+            return "ghi"; 
+            break;
+        case '5':
+            return "jkl"; 
+            break;
+        case '6':
+            return "mno"; 
+            break;
+        case '7':
+            return "pqrs"; 
+            break;
+        case '8':
+            return "tuv"; 
+            break;
+        case '9':
+            return "wxyz"; 
+            break;
+        
+        default:
+            return ""; 
+            break;
+        }
+    } 
+};
+
 int main() {
 
-    int ans = 0; 
 
-    ans ^= 1; 
-
-    cout << ans << endl; 
-    
     return 0;   
 }

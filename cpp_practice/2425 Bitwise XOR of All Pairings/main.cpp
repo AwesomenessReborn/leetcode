@@ -1,3 +1,4 @@
+// https://leetcode.com/problems/bitwise-xor-of-all-pairings/description/?envType=daily-question&envId=2025-01-16
 
 #include <stack> 
 #include <bitset>
@@ -89,13 +90,40 @@ int binSearch(vector<int> arr, int x) {
     }
 }
 
+class Solution {
+public:
+    int xorAllNums(vector<int>& nums1, vector<int>& nums2) {
+        const int n1 = nums1.size(), n2 = nums2.size(); 
+
+        int ans = 0; 
+
+        if (n2 % 2 == 1) {
+            for (int i = 0; i < n1; i++) {
+                ans ^= nums1[i]; 
+            }
+        }
+
+        if (n1 % 2 == 1) {
+            for (int i = 0; i < n2; i++) {
+                ans ^= nums2[i]; 
+            }
+        }
+
+        return ans; 
+    }
+};
+
 int main() {
+    Solution s; 
 
-    int ans = 0; 
+    vector<int> n11 = {2,1,3}; 
+    vector<int> n12 = {10,2,5,0}; 
 
-    ans ^= 1; 
+    vector<int> n21 = {1,2}; 
+    vector<int> n22 = {3,4}; 
 
-    cout << ans << endl; 
+    cout << s.xorAllNums(n11, n12) << endl; 
+    cout << s.xorAllNums(n21, n22) << endl; 
     
     return 0;   
 }

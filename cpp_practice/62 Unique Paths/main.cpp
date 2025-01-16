@@ -1,3 +1,4 @@
+// https://leetcode.com/problems/unique-paths/description/
 
 #include <stack> 
 #include <bitset>
@@ -89,13 +90,36 @@ int binSearch(vector<int> arr, int x) {
     }
 }
 
+class Solution {
+public:
+    int uniquePaths(int m, int n) {
+        int dp[m][n]; 
+
+        for (int i = 0; i < n; i++) {
+            dp[0][i] = 1; 
+        }
+        for (int i = 0; i < m; i++) {
+            dp[i][0] = 1; 
+        }
+
+        for (int row = 1; row < m; row++) {
+            for (int col = 1; col < n; col++) {
+                dp[row][col] = dp[row-1][col] + dp[row][col-1]; 
+            }
+        }
+
+        // printDoubleArray(dp); 
+
+        return dp[m-1][n-1]; 
+    }
+};
+
 int main() {
+    Solution s; 
 
-    int ans = 0; 
+    cout << s.uniquePaths(3, 7) << endl; 
+    cout << s.uniquePaths(3, 2) << endl; 
 
-    ans ^= 1; 
 
-    cout << ans << endl; 
-    
     return 0;   
 }

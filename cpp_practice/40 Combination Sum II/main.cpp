@@ -1,3 +1,4 @@
+// https://leetcode.com/problems/combination-sum-ii/description/
 
 #include <stack> 
 #include <bitset>
@@ -89,13 +90,55 @@ int binSearch(vector<int> arr, int x) {
     }
 }
 
+class Solution {
+public:
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        const int n = candidates.size(); 
+        vector<vector<int>> ans; 
+
+        vector<int> current; 
+
+        sort(candidates.begin(), candidates.end()); 
+
+        backtrack(ans, current, candidates, target, 0, n); 
+
+        return ans; 
+    }
+private: 
+    void backtrack(vector<vector<int>> &ans, vector<int> &cursol,
+                      vector<int> &candidates, int target, int idx, int n) {
+        if (target == 0) {
+            ans.push_back(cursol); 
+            return; 
+        }
+
+        for (int i = idx; i < n && target >= candidates[i]; ++i) {
+            if (i == idx || candidates[i] != candidates[i-1]) {
+                cursol.push_back(candidates[i]); 
+                backtrack(ans, cursol, candidates,
+                             target - candidates[i], i + 1, n); 
+                cursol.pop_back(); 
+            }
+        }
+
+    }
+};
+
 int main() {
+    vector<int> n1 = {10,1,2,7,6,1,5};
+    vector<int> n2 = {2,5,2,1,2}; 
 
-    int ans = 0; 
+    Solution s; 
 
-    ans ^= 1; 
+    cout << "1" << endl; 
+    printDoubleArray(s.combinationSum2(n1, 8)); 
+    cout << endl; 
+    cout << endl; 
 
-    cout << ans << endl; 
-    
+    cout << "2" << endl; 
+    printDoubleArray(s.combinationSum2(n2, 5)); 
+    cout << endl; 
+    cout << endl; 
+
     return 0;   
 }

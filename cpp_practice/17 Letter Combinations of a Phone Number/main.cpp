@@ -93,11 +93,83 @@ int binSearch(vector<int> arr, int x) {
 class Solution {
 public:
     vector<string> letterCombinations(string digits) {
+        const int n = digits.size(); 
+        vector<string> res; 
+
+        backtrack(res, digits, 0, "", n); 
+
+        return res; 
+    }
+private: 
+    void backtrack(vector<string>& res, string digits, int idx, string cur, int n) {
+        if (cur.size() == n) {
+            res.push_back(cur); 
+            return; 
+        }
+
+        string pots = lookup(digits[idx]); 
+
+        for (char c : pots) {
+            cur.push_back(c); 
+            backtrack(res, digits, idx+1, cur, n); 
+            cur.pop_back(); 
+        }
+
+    }
+    string lookup(char c) {
+        switch (c)
+        {
+        case '2':
+            return "abc"; 
+            break;
+        case '3':
+            return "def"; 
+            break;
+        case '4':
+            return "ghi"; 
+            break;
+        case '5':
+            return "jkl"; 
+            break;
+        case '6':
+            return "mno"; 
+            break;
+        case '7':
+            return "pqrs"; 
+            break;
+        case '8':
+            return "tuv"; 
+            break;
+        case '9':
+            return "wxyz"; 
+            break;
         
+        default:
+            return ""; 
+            break;
+        }
     }
 };
 
+
 int main() {
+
+    Solution s; 
+
+    cout << "1: " << endl; 
+    printArray(s.letterCombinations("23")); 
+    cout << endl; 
+    cout << endl; 
+
+    cout << "2: " << endl; 
+    printArray(s.letterCombinations("")); 
+    cout << endl; 
+    cout << endl; 
+
+    cout << "3: " << endl; 
+    printArray(s.letterCombinations("2")); 
+    cout << endl; 
+    cout << endl; 
 
     return 0;   
 }
