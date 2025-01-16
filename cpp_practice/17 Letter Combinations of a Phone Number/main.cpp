@@ -1,4 +1,4 @@
-// https://leetcode.com/problems/permutations/description/
+// https://leetcode.com/problems/letter-combinations-of-a-phone-number/description/
 
 #include <stack> 
 #include <bitset>
@@ -92,53 +92,12 @@ int binSearch(vector<int> arr, int x) {
 
 class Solution {
 public:
-    vector<vector<int>> permute(vector<int>& nums) {
-        const int n = nums.size(); 
+    vector<string> letterCombinations(string digits) {
         
-        vector<vector<int>> ans; 
-
-        vector<bool> used(n, false); 
-
-        vector<int> curr; 
-        backtrack(ans, used, n, curr, nums); 
-
-        return ans; 
-    }
-private: 
-    void backtrack(vector<vector<int>>& ans, vector<bool>& used, int n, vector<int>& curr, vector<int>& nums) {
-        if (curr.size() == n) {
-            ans.push_back(curr); 
-            return; 
-        }
-        for (int i = 0; i < n; i++) {
-            if (!used[i]) {
-                used[i] = true; 
-                curr.push_back(nums[i]); 
-                backtrack(ans, used, n, curr, nums); 
-                used[i] = false; 
-                curr.pop_back(); 
-            }
-        }
     }
 };
 
 int main() {
-    vector<int> n1 = {1,2,3}; 
-    vector<int> n2 = {0,1}; 
-    vector<int> n3 = {1}; 
 
-    vector<int> n4 = {1,2,3,4,12,123,33, 11, 333}; 
-
-    Solution s; 
-
-    printDoubleArray(s.permute(n4)); 
-    cout << endl; 
-
-    // printDoubleArray(s.permute(n2)); 
-    // cout << endl; 
-
-    // printDoubleArray(s.permute(n3)); 
-    // cout << endl; 
-    
     return 0;   
 }

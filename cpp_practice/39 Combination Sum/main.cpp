@@ -1,4 +1,4 @@
-// https://leetcode.com/problems/permutations/description/
+// https://leetcode.com/problems/combination-sum/
 
 #include <stack> 
 #include <bitset>
@@ -92,53 +92,56 @@ int binSearch(vector<int> arr, int x) {
 
 class Solution {
 public:
-    vector<vector<int>> permute(vector<int>& nums) {
-        const int n = nums.size(); 
-        
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        const int n = candidates.size(); 
+
         vector<vector<int>> ans; 
+        vector<int> curr;
 
-        vector<bool> used(n, false); 
-
-        vector<int> curr; 
-        backtrack(ans, used, n, curr, nums); 
+        backtrack(ans, target, n, 0, candidates, curr, 0); 
 
         return ans; 
     }
 private: 
-    void backtrack(vector<vector<int>>& ans, vector<bool>& used, int n, vector<int>& curr, vector<int>& nums) {
-        if (curr.size() == n) {
+    void backtrack(vector<vector<int>>& ans, int target, int n, int curSum, vector<int>& candidates, vector<int>& curr, int idx) {
+        if (curSum > target) return; 
+
+        if (curSum == target) {
             ans.push_back(curr); 
             return; 
         }
-        for (int i = 0; i < n; i++) {
-            if (!used[i]) {
-                used[i] = true; 
-                curr.push_back(nums[i]); 
-                backtrack(ans, used, n, curr, nums); 
-                used[i] = false; 
-                curr.pop_back(); 
-            }
+
+        for (int i = idx; i < n; i++) {
+            curSum += candidates[i]; 
+            curr.push_back(candidates[i]); 
+            backtrack(ans, target, n, curSum, candidates, curr, i); 
+            curr.pop_back(); 
+            curSum -= candidates[i]; 
         }
     }
 };
 
 int main() {
-    vector<int> n1 = {1,2,3}; 
-    vector<int> n2 = {0,1}; 
-    vector<int> n3 = {1}; 
-
-    vector<int> n4 = {1,2,3,4,12,123,33, 11, 333}; 
+    vector<int> n1 = {2,3,6,7}; 
+    vector<int> n2 = {2,3,5}; 
+    vector<int> n3 = {2}; 
 
     Solution s; 
 
-    printDoubleArray(s.permute(n4)); 
+    cout << "1: " << endl; 
+    printDoubleArray(s.combinationSum(n1, 7)); 
+    cout << endl; 
     cout << endl; 
 
-    // printDoubleArray(s.permute(n2)); 
-    // cout << endl; 
+    cout << "2: " << endl; 
+    printDoubleArray(s.combinationSum(n2, 8)); 
+    cout << endl; 
+    cout << endl; 
 
-    // printDoubleArray(s.permute(n3)); 
-    // cout << endl; 
+    cout << "3: " << endl; 
+    printDoubleArray(s.combinationSum(n3, 1)); 
+    cout << endl; 
+    cout << endl; 
     
     return 0;   
-}
+}; 
