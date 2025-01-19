@@ -1,4 +1,5 @@
 
+
 #include <stack> 
 #include <bitset>
 #include <map>
@@ -89,7 +90,53 @@ int binSearch(vector<int> arr, int x) {
     }
 }
 
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        const int n = height.size(); 
+
+        vector<int> leftM(n); 
+        vector<int> rightM(n); 
+
+        int running_max = 0; 
+        for (int i = 1; i < n; i++) {
+            if (height[i-1] > running_max) running_max = height[i-1]; 
+
+            leftM[i] = running_max; 
+        }
+
+        running_max = 0; 
+        for (int i = n-2; i >= 0; i--) {
+            if (height[i+1] > running_max) running_max = height[i+1]; 
+
+            rightM[i] = running_max;
+        }
+
+        int cc = 0, w = 0; 
+        for (int i = 0; i < n; i++) {
+            w = std::min(leftM[i], rightM[i]) - height[i];
+            if (w > 0) cc += w; 
+        }
+
+        return cc; 
+    }
+};
+
 int main() {
+
+    vector<int> n1 = {0,1,0,2,1,0,1,3,2,1,2,1}; 
+    vector<int> n2 = {4,2,0,3,2,5}; 
+
+    Solution s; 
+
+
+    cout << "question: " << endl; 
+    printArray(n1); 
+
+    cout << "ans: " << endl; 
+    s.trap(n1); 
     
     return 0;   
 }
+
+

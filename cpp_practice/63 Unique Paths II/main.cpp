@@ -1,3 +1,4 @@
+// https://leetcode.com/problems/unique-paths-ii/
 
 #include <stack> 
 #include <bitset>
@@ -88,6 +89,48 @@ int binSearch(vector<int> arr, int x) {
         return right; 
     }
 }
+
+class Solution {
+public:
+    int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
+        if (obstacleGrid[0][0] == 1) return 0; 
+        const int len = obstacleGrid[0].size(), height = obstacleGrid.size(); 
+
+        int dp[height][len]; 
+
+        dp[0][0] = 1; 
+        for (int i = 1; i < len; i++) {
+            if (obstacleGrid[0][i] == 1) {
+                dp[0][i] = 0; 
+                continue;
+            }
+
+            dp[0][i] = dp[0][i-1]; 
+        }
+
+        for (int i = 1; i < height; i++) {
+            if (obstacleGrid[i][0] == 1) {
+                dp[i][0] = 0; 
+                continue;
+            }
+
+            dp[i][0] = dp[i-1][0]; 
+        }
+
+        for (int row = 1; row < height; row++) {
+            for (int col = 1; col < len; col++) {
+                if (obstacleGrid[row][col] == 1) {
+                    dp[row][col] = 0; 
+                    continue;
+                }
+
+                dp[row][col] = dp[row-1][col] + dp[row][col-1]; 
+            }
+        }
+
+        return dp[height-1][len-1]; 
+    }
+};
 
 int main() {
     

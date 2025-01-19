@@ -1,3 +1,4 @@
+// https://leetcode.com/problems/minimum-cost-to-make-at-least-one-valid-path-in-a-grid/description/?envType=daily-question&envId=2025-01-18
 
 #include <stack> 
 #include <bitset>
@@ -88,6 +89,51 @@ int binSearch(vector<int> arr, int x) {
         return right; 
     }
 }
+
+class Solution {
+public:
+    int minCost(vector<vector<int>>& grid) {
+        const int ROWS = grid.size(), COLS = grid[0].size(); 
+
+        vector<std::pair<int, int>> directions = {
+            {0, 1}, {0, -1}, {1, 0}, {-1, 0}
+        }; 
+
+        deque<std::array<int, 3>> que; 
+        que.push_back({0, 0, 0}); 
+        vector<vector<int>> min_cost(ROWS, vector<int>(COLS, INT_MAX)); 
+        min_cost[0][0] = 0; 
+
+        while (!que.empty()) {
+            auto [r, c, cost] = que.front();
+            que.pop_front(); 
+
+            if (r == ROWS-1 && c == COLS-1) return cost; 
+
+            int nc, nr, n_cost; 
+            for (int dn = 1; dn <= 4; dn++) {
+                auto [dr, dc] = directions[dn-1]; 
+                nc = c + dc; 
+                nr = r + dr; 
+                n_cost = (dn == grid[r][c]) ? cost : cost + 1; 
+
+                if (nc < 0 || nr < 0 || nr >= ROWS || nc >= COLS
+                    || n_cost >= min_cost[nr][nc]
+                ) continue;
+
+                min_cost[nr][nc] = n_cost; 
+
+                if (grid[r][c] == dn) {
+                    que.push_front({nr, nc, n_cost}); 
+                } else {
+                    que.push_back({nr, nc, n_cost}); 
+                }
+            }
+        }
+
+        return min_cost[ROWS-1][COLS-1]; 
+    }
+};
 
 int main() {
     
