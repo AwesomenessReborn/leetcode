@@ -1,3 +1,4 @@
+// https://leetcode.com/problems/grid-game/description/?envType=daily-question&envId=2025-01-21
 
 #include <stack> 
 #include <bitset>
@@ -89,11 +90,16 @@ int binSearch(vector<int> arr, int x) {
     }
 }
 
+class Solution {
+public:
+    long long gridGame(vector<vector<int>>& grid) {
+        
+    }
+};
+
 int main() {
 
-    for (int i = 0; i < 265; i++) {
-        cout << i << " : " << (char)i << endl; 
-    }
+
     
     return 0;   
 }

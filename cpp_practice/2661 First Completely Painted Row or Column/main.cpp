@@ -1,3 +1,4 @@
+// https://leetcode.com/problems/first-completely-painted-row-or-column/?envType=daily-question&envId=2025-01-20
 
 #include <stack> 
 #include <bitset>
@@ -89,11 +90,36 @@ int binSearch(vector<int> arr, int x) {
     }
 }
 
-int main() {
+class Solution {
+public:
+    int firstCompleteIndex(vector<int>& arr, vector<vector<int>>& mat) {
+        const int ROWS = mat.size(), COLS = mat[0].size(), n = arr.size(); 
 
-    for (int i = 0; i < 265; i++) {
-        cout << i << " : " << (char)i << endl; 
+        vector<int> rowCount(ROWS, 0), colCount(COLS, 0); 
+        vector<std::pair<int, int>> numToPos(n+1); // index(array val) --> coordinate
+
+        for (int row = 0; row < ROWS; row++) {
+            for (int col = 0; col < COLS; col++) {
+                numToPos[mat[row][col]] = {row, col}; 
+            }
+        }
+
+        for (int i = 0; i < n; i++) {
+            auto [targetRow, targetCol] = numToPos[arr[i]]; 
+
+            rowCount[targetRow]++; 
+            colCount[targetCol]++; 
+
+            if (rowCount[targetRow] == COLS || colCount[targetCol] == ROWS) {
+                return i; 
+            }
+        }
+
+        return -1; 
     }
+};
+
+int main() {
     
     return 0;   
 }

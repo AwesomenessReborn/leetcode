@@ -1,4 +1,4 @@
-// https://leetcode.com/problems/trapping-rain-water-ii/description/?envType=daily-question&envId=2025-01-19
+// https://leetcode.com/problems/count-servers-that-communicate/?envType=daily-question&envId=2025-01-23
 
 #include <stack> 
 #include <bitset>
@@ -90,99 +90,52 @@ int binSearch(vector<int> arr, int x) {
     }
 }
 
-
-using hMapPair = array<int, 3>; 
-
-struct Compare {
-    bool operator()(const hMapPair& a, const hMapPair& b) {
-        return a[0] > b[0]; 
-    }
-}; 
-
 class Solution {
 public:
-    int trapRainWater(vector<vector<int>>& heightMap) {
-        const int ROWS = heightMap.size(), COLS = heightMap[0].size(); 
-
-        if (ROWS <= 2 || COLS <= 2) return 0; 
-
-        vector<vector<bool>> seen(ROWS, vector<bool>(COLS, false)); 
-        priority_queue<hMapPair, vector<hMapPair>, Compare> boundary; 
+    int countServers(vector<vector<int>>& grid) {
+        const int ROWS = grid.size(), COLS = grid[0].size(); 
         int cc = 0; 
 
-        int directions[4][2] = {
-            {0, -1}, 
-            {0, 1}, 
-            {-1, 0},  
-            {1, 0}
-        }; 
+        vector<int> rr_count(ROWS, 0), cc_count(COLS, 0); 
 
-        for (int i = 0; i < ROWS; i++) {
-            seen[i][0] = true; 
-            seen[i][COLS-1] = true; 
-
-            boundary.push({heightMap[i][0], i, 0}); 
-            boundary.push({heightMap[i][COLS-1], i, COLS-1}); 
-        }
-
-        for (int i = 0; i < COLS; i++) {
-            seen[0][i] = true; 
-            seen[ROWS-1][i] = true; 
-
-            boundary.push({heightMap[0][i], 0, i}); 
-            boundary.push({heightMap[ROWS-1][i], ROWS-1, i}); 
-        }
-
-        printDoubleArray(seen); 
-
-        while (!boundary.empty()) {
-            const auto min = boundary.top();
-
-            int height=min[0], x=min[1], y=min[2]; 
-            boundary.pop(); 
-
-            for (int dir = 0; dir < 4; dir++) {
-                int nx = x + directions[dir][0]; 
-                int ny = y + directions[dir][1]; 
-
-                if (nx >= ROWS || ny < 0 || nx < 0 || ny >= COLS) {
-                    continue;
-                }
-                if (seen[nx][ny]) continue;
-
-                int nHeight = heightMap[nx][ny]; 
-
-                if (nHeight < height) {
-                    cc += height - nHeight; 
-                }
-
-                boundary.push({std::max(nHeight, height), nx, ny}); 
-                seen[nx][ny] = true; 
+        for (int row = 0; row < ROWS; row++) {
+            for (int col = 0; col < COLS; col++) {
+                if (!grid[row][col]) continue;
+                rr_count[row]++; 
+                cc_count[col]++; 
+                cc++; 
             }
-
         }
+
+        for (int row = 0; row < ROWS; row++) {
+            for (int col = 0; col < COLS; col++) {
+                if (grid[row][col] && rr_count[row] == 1 && cc_count[col] == 1) cc--; 
+            }
+        }
+
+
+        // printArray(rr_count); 
+        // printArray(cc_count); 
 
         return cc; 
     }
 };
 
 int main() {
+
     vector<vector<int>> n1 = {
-        {
-            1,4,3,1,3,2
-        }, 
-        {
-            3,2,1,3,2,4
-        }, 
-        {
-            2,3,3,2,3,1
-        }
+        {1, 0} ,
+        {1, 1}
     }; 
 
+    vector<vector<int>> n2 = {
+        {{1,0,0,1,0},{0,0,0,0,0},{0,0,0,1,0}}
+    }; 
 
     Solution s; 
 
-    cout << s.trapRainWater(n1) << endl; 
+    // cout << s.countServers(n1) << endl; 
+    cout << s.countServers(n2) << endl; 
 
     
     return 0;   
