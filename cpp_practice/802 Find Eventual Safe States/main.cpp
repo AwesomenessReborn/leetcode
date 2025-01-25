@@ -93,30 +93,37 @@ int binSearch(vector<int> arr, int x) {
 class Solution {
 public:
     vector<int> eventualSafeNodes(vector<vector<int>>& graph) {
-        const int n = graph.size(); 
-        vector<uint_fast8_t> state(n, 0); 
-        
-        vector<int> ans; 
+        const int n = graph.size();
+        vector<int> state(n, 0); // 0 = not visited, 1 = visiting, 2 = safe
+        vector<int> ans;
 
-        for (int i = 0; i < graph.size(); i++) {
-            if (graph[i].empty()) {
-                state[i] = 3; // indicating empty/safe
-                ans.push_back(i); 
-                continue;
+        for (int i = 0; i < n; i++) {
+            if (isSafe(graph, i, state)) {
+                ans.push_back(i);
             }
-
-
-
         }
 
-        return ans; 
-    }
-private: 
-    bool cycle(vector<vector<int>>& graph, int i, vector<uint_fast8_t> state) {
-        
+        return ans;
     }
 
+private:
+    bool isSafe(vector<vector<int>>& graph, int node, vector<int>& state) {
+        if (state[node] > 0) {
+            return state[node] == 2; // Already safe or part of a cycle
+        }
+
+        state[node] = 1; // Mark as visiting
+        for (int neighbor : graph[node]) {
+            if (!isSafe(graph, neighbor, state)) {
+                return false; // Found a cycle
+            }
+        }
+
+        state[node] = 2; // Mark as safe
+        return true;
+    }
 };
+
 
 int main() {
 
