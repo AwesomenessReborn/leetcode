@@ -1,4 +1,5 @@
 
+
 #include <stack> 
 #include <bitset>
 #include <map>
@@ -88,6 +89,37 @@ int binSearch(vector<int> arr, int x) {
         return right; 
     }
 }
+
+class Solution {
+public:
+    int findMaxFish(vector<vector<int>>& grid) {
+        const int ROWS = grid.size(), COLS = grid[0].size(); 
+        int maxcc = 0; 
+
+        for (int row = 0; row < ROWS; row++ ) {
+
+            for (int col = 0; col < COLS; col++) {
+                maxcc = std::max(maxcc, dfs(row, col, grid, ROWS, COLS)); 
+            }
+
+        }
+
+        return maxcc; 
+    }
+private: 
+    int dfs(int row, int col, vector<vector<int>>& grid, int ROWS, int COLS) {
+        if (row >= ROWS || col >= COLS || row < 0 || col < 0) return 0; 
+        if (grid[row][col] == 0) return 0; 
+
+        int temp = grid[row][col]; 
+        grid[row][col] = 0;  
+
+        return temp + dfs(row+1, col, grid, ROWS, COLS) 
+            + dfs(row, col+1, grid, ROWS, COLS) 
+            + dfs(row-1, col, grid, ROWS, COLS) 
+            + dfs(row, col-1, grid, ROWS, COLS); 
+    }
+};
 
 int main() {
 
