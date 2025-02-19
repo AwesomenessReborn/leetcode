@@ -1,3 +1,4 @@
+// https://leetcode.com/problems/letter-tile-possibilities/description/?envType=daily-question&envId=2025-02-17
 
 #include <numeric>
 #include <stack> 
@@ -119,6 +120,32 @@ vector<vector<int>> solution(vector<vector<int>> a) {
 
     return res; 
 }
+
+class Solution {
+public:
+    int numTilePossibilities(string tiles) {
+        unordered_set<string> hist; 
+        vector<int> fmap(26, 0); 
+
+        for (char c : tiles) fmap[c-'A']++; 
+
+        backtrack(fmap, "", hist); 
+
+        return hist.size();
+    }
+private: 
+    void backtrack(vector<int>& fmap, string current, unordered_set<string>& hist) {
+        if (!current.empty()) hist.insert(current); 
+
+        for (int i = 0; i < 26; i++) {
+            if (fmap[i] > 0) {
+                fmap[i]--; 
+                backtrack(fmap, current + ((char)(i + 'A')), hist); 
+                fmap[i]++; 
+            }
+        }
+    }
+};
 
 int main() {
 
