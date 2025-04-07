@@ -120,15 +120,51 @@ vector<vector<int>> solution(vector<vector<int>> a) {
     return res; 
 }
 
+int getLeftIndex(int i) {
+    return (2*i) + 1; 
+}
 
+int getRightIndex(int i) {
+    return (2*i) + 2; 
+}
 
-int main() {
+int getParent(int i) {
+    return (i-1)/2; 
+}
 
-    vector<int> sample = {1, 2, 3}; 
+// Heap functions
+bool insert(vector<int>& heap) {
+    return false; 
+}
 
-    for (auto it = sample.begin(); it != sample.end(); ++it) {
-        cout << *it << endl; 
-    }
+int getTop(vector<int>& heap) {
+    return 0; 
+}
+
+int extract(vector<int>& heap) {
+    return 0; 
+}
+
+bool update(vector<int>& heap) {
+    return false;
+}
+
+void buildHeap(vector<int>& heap) {
+
+}
+
+int main(int argc, char const *argv[])
+{
+
+    vector<int> values = {1, 5, 3, 2, 5}; 
+
+    buildHeap(values); 
+
+    int output = extract(values); 
+
+    cout << output << endl; 
+
+    printArray(values); 
 
     return 0;
 }
