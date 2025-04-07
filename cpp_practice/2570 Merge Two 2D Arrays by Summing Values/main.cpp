@@ -1,5 +1,6 @@
-// https://leetcode.com/problems/first-completely-painted-row-or-column/?envType=daily-question&envId=2025-01-20
+// https://leetcode.com/problems/merge-two-2d-arrays-by-summing-values/?envType=daily-question&envId=2025-03-02
 
+#include <numeric>
 #include <stack> 
 #include <bitset>
 #include <map>
@@ -90,36 +91,50 @@ int binSearch(vector<int> arr, int x) {
     }
 }
 
+
 class Solution {
 public:
-    int firstCompleteIndex(vector<int>& arr, vector<vector<int>>& mat) {
-        const int ROWS = mat.size(), COLS = mat[0].size(), n = arr.size(); 
+    vector<vector<int>> mergeArrays(vector<vector<int>>& nums1, vector<vector<int>>& nums2) {       
+        const int n1size = nums1.size(), n2size = nums2.size(); 
+        vector<vector<int>> res; 
+        res.reserve(n1size + n2size);
 
-        vector<int> rowCount(ROWS, 0), colCount(COLS, 0); 
-        vector<std::pair<int, int>> numToPos(n+1); // index(array val) --> coordinate
+        int i1 = 0, i2 = 0; 
 
-        for (int row = 0; row < ROWS; row++) {
-            for (int col = 0; col < COLS; col++) {
-                numToPos[mat[row][col]] = {row, col}; 
+        while (i1 < n1size || i2 < n2size) {
+
+            if (i1 >= n1size) {
+                res.push_back({nums2[i2][0], nums2[i2][1]});  
+                i2++; 
+                continue;
+            }
+            if (i2 >= n2size) {
+                res.push_back({nums1[i1][0], nums1[i1][1]});  
+                i1++; 
+                continue;
+            }
+
+            int id1 = nums1[i1][0], id2 = nums2[i2][0]; 
+            if (id1 == id2) {
+                res.push_back({id1, nums1[i1][1]+nums2[i2][1]}); 
+                i1++; i2++; 
+                continue;
+            }
+            if (id1 > id2) {
+                res.push_back({id2, nums2[i2][1]});  
+                i2++; 
+            } else {
+                res.push_back({id1, nums1[i1][1]});  
+                i1++; 
             }
         }
 
-        for (int i = 0; i < n; i++) {
-            auto [targetRow, targetCol] = numToPos[arr[i]]; 
-
-            rowCount[targetRow]++; 
-            colCount[targetCol]++; 
-
-            if (rowCount[targetRow] == COLS || colCount[targetCol] == ROWS) {
-                return i; 
-            }
-        }
-
-        return -1; 
+        return res; 
     }
 };
 
-int main() {
-    
-    return 0;   
+int main(int argc, char const *argv[])
+{
+
+    return 0;
 }
