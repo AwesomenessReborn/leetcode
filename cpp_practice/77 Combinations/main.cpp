@@ -1,5 +1,5 @@
+// https://leetcode.com/problems/combinations/ 
 
-#include <numeric>
 #include <stack> 
 #include <bitset>
 #include <map>
@@ -90,49 +90,35 @@ int binSearch(vector<int> arr, int x) {
     }
 }
 
-bool check(char pot) {
-    return pot == 'a' || pot == 'e' || pot == 'i' || pot == 'o' || pot == 'u'; 
-}
+class Solution {
+public:
+    vector<vector<int>> combine(int n, int k) {
+        vector<vector<int>> sol; 
+        vector<int> building_array; 
 
+        generator(sol, n, k, building_array, 0); 
 
-vector<vector<int>> solution(vector<vector<int>> a) {
-    const int n = a.size(); 
-    
-    unordered_map<int, vector<int>> coll; 
-
-    for (int group = 0; group < n; group++) {
-        float mean = std::accumulate(a[group].begin(), a[group].end(), 0) / a[group].size(); 
-
-        coll[mean].push_back(group); 
+        return sol; 
     }
 
-    vector<vector<int>> res; 
-    for (auto pp : coll) {
-        vector<int> cur; 
-
-        for (auto value : pp.second) {
-            cur.push_back(value); 
+private: 
+    void generator(vector<vector<int>>& sol, int n, int k, vector<int>& combo, int start) {
+        if (k == 0) {
+            sol.push_back(combo); 
+            return; 
         }
 
-        res.push_back(cur); 
+        for (int i = start; i < n; i++) {
+            combo.push_back(i+1); 
+            generator(sol, n, k-1, combo, i+1); 
+            combo.pop_back(); 
+        }
     }
-
-    return res; 
-}
+};
 
 
-
-int main() {
-
-    // vector<int> sample = {1, 2, 3}; 
-
-    // for (auto it = sample.begin(); it != sample.end(); ++it) {
-    //     cout << *it << endl; 
-    // }
-
-    for (int i = 0; i < 32; i++) {
-        cout << (1 << i) << endl; 
-    }
+int main(int argc, char const *argv[])
+{
 
     return 0;
 }
