@@ -1,3 +1,4 @@
+// https://leetcode.com/problems/domino-and-tromino-tiling/
 
 #include <numeric>
 #include <stack> 
@@ -120,29 +121,38 @@ vector<vector<int>> solution(vector<vector<int>> a) {
     return res; 
 }
 
+// rule: A[N] = A[N-1] * 2 + A[N-3]
+/**
+ *this is some text kld;ja
+ *this is some text l;kdasa
+ *this is some text lkjasdf
+ *this is some text lkja;df
+ *this is some text klajdf
+ * 
+ */
 class Solution {
 public:
-    int missingNumber(vector<int>& nums) {
-        int xored = 0; 
-        const int n = nums.size(); 
-        for (int i = 1; i <= n; i++) {
-            xored ^= i; 
+    const int MOD = 1e9 + 7; 
+
+    int numTilings(int n) {
+        vector<long long> dp(n + 1);
+        if (n == 1) return 1; 
+        if (n == 2) return 2; 
+        if (n == 3) return 5; 
+        dp[1] = 1;
+        dp[2] = 2;
+        dp[3] = 5;
+
+        for (int i = 4; i < n+1; i++) {
+            dp[i] = ((dp[i-1]*2)%MOD + dp[i-3]%MOD) % MOD; 
         }
 
-        for (int value : nums) {
-            xored ^= value; 
-        }
-
-        return xored; 
+        return dp[n]; 
     }
 };
 
 int main() {
-    Solution s; 
-
-    vector<int> n1 = {1, 2, 3};
-
-    cout << s.missingNumber(n1) << endl ; 
+    string s = "this"; 
 
     return 0;
 }

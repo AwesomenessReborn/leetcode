@@ -1,3 +1,4 @@
+// https://leetcode.com/problems/maximum-subarray-with-equal-products/
 
 #include <numeric>
 #include <stack> 
@@ -90,59 +91,35 @@ int binSearch(vector<int> arr, int x) {
     }
 }
 
-bool check(char pot) {
-    return pot == 'a' || pot == 'e' || pot == 'i' || pot == 'o' || pot == 'u'; 
-}
-
-
-vector<vector<int>> solution(vector<vector<int>> a) {
-    const int n = a.size(); 
-    
-    unordered_map<int, vector<int>> coll; 
-
-    for (int group = 0; group < n; group++) {
-        float mean = std::accumulate(a[group].begin(), a[group].end(), 0) / a[group].size(); 
-
-        coll[mean].push_back(group); 
-    }
-
-    vector<vector<int>> res; 
-    for (auto pp : coll) {
-        vector<int> cur; 
-
-        for (auto value : pp.second) {
-            cur.push_back(value); 
-        }
-
-        res.push_back(cur); 
-    }
-
-    return res; 
-}
-
 class Solution {
 public:
-    int missingNumber(vector<int>& nums) {
-        int xored = 0; 
+    int maxLength(vector<int>& nums) {
+        int maxLength = 0; 
         const int n = nums.size(); 
-        for (int i = 1; i <= n; i++) {
-            xored ^= i; 
-        }
 
-        for (int value : nums) {
-            xored ^= value; 
-        }
+        for (int i = 0; i < n; ++i) {
+            int curLCM = nums[i]; 
+            int curGCD = nums[i]; 
 
-        return xored; 
+            double reciprocal = 1.0 / nums[i]; 
+
+            for (int j = i; j < n; ++j) {
+                if (j > i) 
+                {
+                    curLCM = gcd(curLCM, nums[j]);
+                    curGCD = lcm(curGCD,nums[j]); 
+                    reciprocal /= nums[j];
+                }
+                if (curGCD * curLCM * reciprocal>0.99999999) 
+                    maxLength = max(maxLength, j - i + 1);
+            }
+        }
+        return maxLength;
     }
 };
 
-int main() {
-    Solution s; 
-
-    vector<int> n1 = {1, 2, 3};
-
-    cout << s.missingNumber(n1) << endl ; 
+int main(int argc, char const *argv[])
+{
 
     return 0;
 }

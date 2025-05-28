@@ -1,5 +1,5 @@
+// https://leetcode.com/problems/maximum-subarray/description/
 
-#include <numeric>
 #include <stack> 
 #include <bitset>
 #include <map>
@@ -90,59 +90,37 @@ int binSearch(vector<int> arr, int x) {
     }
 }
 
-bool check(char pot) {
-    return pot == 'a' || pot == 'e' || pot == 'i' || pot == 'o' || pot == 'u'; 
-}
-
-
-vector<vector<int>> solution(vector<vector<int>> a) {
-    const int n = a.size(); 
-    
-    unordered_map<int, vector<int>> coll; 
-
-    for (int group = 0; group < n; group++) {
-        float mean = std::accumulate(a[group].begin(), a[group].end(), 0) / a[group].size(); 
-
-        coll[mean].push_back(group); 
-    }
-
-    vector<vector<int>> res; 
-    for (auto pp : coll) {
-        vector<int> cur; 
-
-        for (auto value : pp.second) {
-            cur.push_back(value); 
-        }
-
-        res.push_back(cur); 
-    }
-
-    return res; 
-}
-
 class Solution {
 public:
-    int missingNumber(vector<int>& nums) {
-        int xored = 0; 
-        const int n = nums.size(); 
-        for (int i = 1; i <= n; i++) {
-            xored ^= i; 
-        }
+    int maxSubArray(vector<int>& nums) {
+        
 
-        for (int value : nums) {
-            xored ^= value; 
-        }
-
-        return xored; 
+        return 1; 
     }
 };
 
-int main() {
-    Solution s; 
+int main(int argc, char const *argv[])
+{
+    vector<int> n1 = {
+        -2,1,-3,4,-1,2,1,-5,4
+    }; 
+    vector<int> n2 = {
+        1 
+    }; 
+    vector<int> n3 = {
+        5,4,-1,7,8
+    }; 
 
-    vector<int> n1 = {1, 2, 3};
+    vector<int> df; 
 
-    cout << s.missingNumber(n1) << endl ; 
+    int sum = 0; 
+    for (int value: n1) {
+        sum += value; 
+        df.push_back(sum); 
+    }
+
+    printArray(n1); 
+    printArray(df); 
 
     return 0;
 }
