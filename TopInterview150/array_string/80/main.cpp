@@ -1,4 +1,5 @@
 
+
 #include <stack>
 #include <bitset>
 #include <map>
@@ -114,28 +115,13 @@ int binSearch(vector<int> arr, int x)
 class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
-        const int n = nums.size(); 
-        int uni = 0; 
-
-        int prev = -101; 
-        for (int i = 0; i < n; i++) {
-            if (nums[i] == prev) {
-                // same number ... don't update
-            } else {
-                // unique number ... write
-                nums[uni++] = nums[i]; 
-            }
-            prev = nums[i]; 
-        }
-
-        return uni; 
+        
     }
 };
 
 int main()
 {
     Solution s; 
-
 
     vector<int> n1 = {1,1,2}; 
     vector<int> n2 = {0,0,1,1,1,2,2,3,3,4}; 
