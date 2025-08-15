@@ -137,12 +137,19 @@ public:
     }
 };
 
+#include <bitset>
+
+void printBits(unsigned int value) {
+    // 32 bits for a standard unsigned int
+    std::bitset<32> bits(value);
+    std::cout << bits << "\n";
+}
+
 int main() {
-    Solution s; 
-
-    vector<int> n1 = {1, 2, 3};
-
-    cout << s.missingNumber(n1) << endl ; 
-
-    return 0;
+    
+    for (int i = 0; i < 16; i++) {
+        // cout << i << endl; 
+        cout << std::pow(4, i) << endl; 
+        printBits(std::pow(4, i)); 
+    }
 }
