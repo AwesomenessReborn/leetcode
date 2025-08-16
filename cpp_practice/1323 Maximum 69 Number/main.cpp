@@ -1,3 +1,4 @@
+// https://leetcode.com/problems/maximum-69-number/?envType=daily-question&envId=2025-08-16
 
 #include <numeric>
 #include <stack> 
@@ -122,37 +123,22 @@ vector<vector<int>> solution(vector<vector<int>> a) {
 
 class Solution {
 public:
-    int missingNumber(vector<int>& nums) {
-        int xored = 0; 
-        const int n = nums.size(); 
-        for (int i = 1; i <= n; i++) {
-            xored ^= i; 
+    int maximum69Number (int num) {
+        for(int i = 0; i < std::to_string(num).length(); i++){
+            if(std::to_string(num)[i] == '6'){
+                return num + 3 * pow(10, (std::to_string(num).length()-1-i));
+            }
         }
-
-        for (int value : nums) {
-            xored ^= value; 
-        }
-
-        return xored; 
+        return num;
     }
 };
 
-#include <bitset>
-
-void printBits(unsigned int value) {
-    // 32 bits for a standard unsigned int
-    std::bitset<32> bits(value);
-    std::cout << bits << "\n";
-}
-
 int main() {
-    
-    int places = 0; 
-    int num = 2; 
+    Solution s; 
 
-    while (std::pow(10, places) <= num) {
-        places++; 
-    }
+    cout << s.maximum69Number(9669) << endl; 
+    cout << s.maximum69Number(9996) << endl; 
+    cout << s.maximum69Number(9999) << endl; 
 
-    cout << places << endl; 
+    return 0;
 }
