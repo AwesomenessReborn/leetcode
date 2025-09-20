@@ -154,12 +154,12 @@ int main() {
 
     cout << "1:" << endl; 
     vector<int> n1 = {1, 1, 1}; 
-    cout << s.subarraySum(n1, 2) << endl; 
+    cout << s.subarraySum(n1, 2) << endl;           // 2
     cout << endl; 
 
     cout << "2:" << endl; 
     vector<int> n2 = {1, 2, 3}; 
-    cout << s.subarraySum(n1, 3) << endl; 
+    cout << s.subarraySum(n1, 3) << endl;           // 2
     cout << endl; 
 
 }
