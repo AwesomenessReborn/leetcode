@@ -158,14 +158,5 @@ void printBits(unsigned int value) {
 int main() {
 
 
-    string s = "abcdkkff"; 
-
-    unsigned int flag = 0; 
-    for (char c : s) {
-        cout << "flagging index: " << (c - 'a') << endl; 
-        flag |= (1 << (c - 'a')); 
-    }
-
-    printBits(flag); 
 
 }
