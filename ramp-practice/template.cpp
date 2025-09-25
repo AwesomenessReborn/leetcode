@@ -133,30 +133,11 @@ vector<vector<int>> solution(vector<vector<int>> a) {
     return res; 
 }
 
-class Solution {
-public:
-    int missingNumber(vector<int>& nums) {
-        int xored = 0; 
-        const int n = nums.size(); 
-        for (int i = 1; i <= n; i++) {
-            xored ^= i; 
-        }
-
-        for (int value : nums) {
-            xored ^= value; 
-        }
-
-        return xored; 
-    }
-};
-
 void printBits(unsigned int value) {
     std::bitset<32> bits(value);
     std::cout << bits << "\n";
 }
 
 int main() {
-
-
 
 }
