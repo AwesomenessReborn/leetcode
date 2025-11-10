@@ -114,7 +114,7 @@ vector<vector<int>> solution(vector<vector<int>> a) {
     unordered_map<int, vector<int>> coll; 
 
     for (int group = 0; group < n; group++) {
-        float mean = std::accumulate(a[group].begin(), a[group].end(), 0) / a[group].size(); 
+        float mean = std::accumulate(a[group].begin(), a[group].end(), 0) / a[group].size();
 
         coll[mean].push_back(group); 
     }

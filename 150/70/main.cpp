@@ -110,7 +110,7 @@ bool check(char pot) {
 
 vector<vector<int>> solution(vector<vector<int>> a) {
     const int n = a.size(); 
-    
+
     unordered_map<int, vector<int>> coll; 
 
     for (int group = 0; group < n; group++) {
