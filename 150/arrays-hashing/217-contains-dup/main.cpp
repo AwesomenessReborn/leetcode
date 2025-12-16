@@ -1,4 +1,4 @@
-// 70. Climbing Stairs
+// 217 Contains Duplicate
 
 #include <numeric>
 #include <stack> 
@@ -110,7 +110,7 @@ bool check(char pot) {
 
 vector<vector<int>> solution(vector<vector<int>> a) {
     const int n = a.size(); 
-
+    
     unordered_map<int, vector<int>> coll; 
 
     for (int group = 0; group < n; group++) {
@@ -140,28 +140,30 @@ void printBits(unsigned int value) {
 
 class Solution {
 public:
-    int climbStairs(int n) {
-        vector<int> res(n+1); 
+    bool containsDuplicate(vector<int>& nums) {
+        unordered_set<int> rec; 
 
-        if (n == 1) return 1; 
-        res[1] = 1; 
-        if (n == 2) return 2; 
-        res[2] = 2; 
-
-        for (int i = 3; i <= n; i++) {
-            res[i] = res[i-1] + res[i-2]; 
+        for (auto val: nums) {
+            auto ret = rec.insert(val);
+            if (!ret.second) return true; 
         }
 
-        return res[n]; 
+        return false;
     }
 };
 
 int main() {
+    vector<int> n1 = {
+        1,2,3,1
+    }; 
+    vector<int> n2 = {
+        1,2,3,4
+    };
+
     Solution s; 
 
-    for (int i = 1; i <= 45; i++) {
-        cout << "n=" << i << "\t \t out=" << s.climbStairs(i) << endl; 
-    }
+    cout << s.containsDuplicate(n1) << endl; 
+    cout << s.containsDuplicate(n2) << endl; 
 
-    cout << endl;
+    return 0;
 }

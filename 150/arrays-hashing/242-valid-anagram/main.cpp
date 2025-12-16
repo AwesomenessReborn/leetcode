@@ -1,4 +1,4 @@
-// 14. Longest Common Prefix
+// 242 valid anagram
 
 #include <numeric>
 #include <stack> 
@@ -139,39 +139,33 @@ void printBits(unsigned int value) {
 }
 
 class Solution {
-private: 
-    string lcm(string a, string b) {
-        int cc = 0; 
-
-        while (cc < a.size() && cc < b.size() && a[cc] == b[cc]) cc++; 
-
-        return a.substr(0, cc); 
-    }
 public:
-    string longestCommonPrefix(vector<string>& strs) {
-        const int n = strs.size(); 
+    bool isAnagram(string s, string t) {
+        const int n = s.size();
+        if (n != t.size()) return false;
+        int buf[26] = { 0 };
 
-        string common = strs[0]; 
-
-        for (int i = 1; i < n; i++) {
-            common = lcm(common, strs[i]); 
+        for (int i = 0; i < n; i++) {
+            buf[s[i] - 'a']++;
+            buf[t[i] - 'a']--;
         }
-        
-        return common; 
+
+        for (int val: buf) if (val != 0) return false;
+
+        return true;
     }
-};  
+};
 
 int main() {
+    string s1 = "anagram";
+    string t1 = "nagaram";
+    string s2 = "rat";
+    string t2 = "car";
+
     Solution s; 
 
-    vector<string> s1 = {
-        "flower","flow","flight"
-    }; 
-    vector<string> s2 = {
-        "dog","racecar","car"
-    }; 
+    cout << s.isAnagram(s1, t1) << endl; 
+    cout << s.isAnagram(s2, t2) << endl; 
 
-    cout << s.longestCommonPrefix(s1) << endl; 
-    cout << s.longestCommonPrefix(s2) << endl; 
-
+    return 0;
 }
