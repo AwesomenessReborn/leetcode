@@ -1,0 +1,10 @@
+# Ignore Mac system files
+.DS_Store
+
+# Ignore debug symbols (that folder you saw)
+*.dSYM
+
+# Ignore executables
+main
+*.o
+*.out
